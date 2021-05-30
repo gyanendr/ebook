@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Product\ProductsController;
+use App\Http\Controllers\Product\BrandController;
+
 
 Route::get('/', function () {
 
@@ -33,7 +36,7 @@ Route::group(
 Route::group(
 	[
 		'prefix' => 'admin',  //link url parameter
-		'namespace' => 'Admin', //folder
+		//'namespace' => 'Admin', //folder
 		'middleware' => 'App\Http\Middleware\AdminMiddleware'
 	], function() {
 		Route::match(['get', 'post'], '/', 'App\Http\Controllers\Admin\AdminController@index');
@@ -46,23 +49,12 @@ Route::group(
 		
 		/****************************  Category functionality   *************************************/		
 		
-		Route::get('/category-listing', [AdminController::class, 'categoryListing'])->name('category-listing');
-		Route::get('/add-category', [AdminController::class, 'addCategory'])->name('add-category');
-		Route::post('/add-category', [AdminController::class, 'saveCategoryDetails'])->name('add-category');
-		Route::get('/edit-category/{id}', [AdminController::class, 'editCategory'])->name('edit-category');
-		Route::post('/update-category', [AdminController::class, 'updateCategory'])->name('update-category');
-		Route::get('/delete-category/{id}',[AdminController::class, 'deleteCategory'])->name('delete-category');
 		
 		/****************************  Category functionality End  *************************************/	
 
-		/****************************  Book functionality   *************************************/		
+		/****************************  Brand functionality   *************************************/		
+		Route::resource('brands', BrandController::class);
 		
-		Route::get('/book-listing', [AdminController::class, 'bookListing'])->name('book-listing');
-		Route::get('/add-book', [AdminController::class, 'addbook'])->name('add-book');
-		Route::post('/add-book', [AdminController::class, 'savebookDetails'])->name('add-book');
-		Route::get('/edit-book/{id}', [AdminController::class, 'editbook'])->name('edit-book');
-		Route::post('/update-book', [AdminController::class, 'updatebook'])->name('update-book');
-		Route::get('/delete-book/{id}',[AdminController::class, 'deleteBook'])->name('delete-book');
 		
 		/****************************  Book functionality End  *************************************/	
 

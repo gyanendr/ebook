@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>E-book | Library</title>
+  <title>Ornine | Shop</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -16,6 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{url('backend')}}/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('backend')}}/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{url('backend')}}/dist/css/custom.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -28,7 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <ul class="navbar-nav ml-auto">
      
       <li class="nav-item">
-         <a class=" btn-sm btn btn-success" href="{{ route('logout') }}" onclick="event.preventDefault();
+         <a class=" btn-sm btn customBtn" href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();"> {{ __('Logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
@@ -94,32 +95,147 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li> 
 
           <li class="nav-item">
-            <a href="{{url('/admin/book-listing')}}" class="nav-link {{(url()->current() == url('/admin/book-listing')) ? 'active' : '' }}">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
-                Book Listing
+                Product
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-          </li> 
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="pages/search/simple.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product Listing</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/search/enhanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Brand Listing</p>
+                </a>
+              </li> 
 
-          <li class="nav-item">
-            <a href="{{url('/admin/order-listing')}}" class="nav-link {{(url()->current() == url('/admin/order-listing')) ? 'active' : '' }}">
-              <i class="nav-icon fas fa-list"></i>
-              <p>
-                Order Listing
-              </p>
-            </a>
+              <li class="nav-item">
+                <a href="pages/search/enhanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Coupon Listing</p>
+                </a>
+              </li>
+            </ul>
           </li>  
 
           <li class="nav-item">
-            <a href="{{url('/admin/category-listing')}}" class="nav-link {{(url()->current() == url('/admin/category-listing')) ? 'active' : '' }}">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
-                Category Listing
+                Category
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="pages/search/simple.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category Listing</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/search/enhanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SubCategory Listing</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Order
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="pages/search/simple.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Order Listing</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/search/enhanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cancel Listing</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Blog
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="pages/search/simple.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Blog Listing</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/search/enhanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Blog Category</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Report Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="pages/search/simple.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin/Sub-Admin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/search/enhanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Service Report</p>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a href="pages/search/enhanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Income Report</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="pages/search/enhanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pending Order list</p>
+                </a>
+              </li>
+            </ul>
           </li>
-         @else
+
+        @else
         <li class="nav-item menu-open">
             <a href="{{url('/user/dashboard')}}" class="nav-link {{(url()->current() == url('/user/dashboard')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
