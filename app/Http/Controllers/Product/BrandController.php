@@ -40,8 +40,8 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        $latestData = Brand::latest('brand_id', 'desc')->select('brand_id')->first();
-        $lastId = ($latestData->brand_id + 1);    
+        $latestData = Brand::latest('id', 'desc')->select('id')->first();
+        $lastId = ($latestData->id + 1);    
         
         $brandImage = '';
         
@@ -105,7 +105,9 @@ class BrandController extends Controller
            $brandImage = $files->getClientOriginalExtension();
            $brandLogo = 'brand_'.$id.'.'.$brandImage; 
            $path = public_path('brand/'.$brandLogo); 
-           unlink($path);
+           if(file_exists($path)){
+             unlink($path);
+           } 
            $files->move(public_path().'/brand/', $brandLogo);
         }
        
