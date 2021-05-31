@@ -25,7 +25,7 @@
               <div class="card-body">
                 <div class="col-lg-12">
                   <div class="text-right">
-                    <a href="{{url('admin/add-category')}}" class="btn bnt-sm btn-success"> <i class="fa fa-plus"></i> Add Category</a>
+                    <a href="{{route('category.create')}}" class="btn bnt-sm customBtn"> <i class="fa fa-plus"></i> Add Category</a>
                   </div>
                   <br>
                 </div>
@@ -34,8 +34,10 @@
                            <thead>
                                <tr>
                                    <th>Id</th>
-                                   <th>Name</th>
-                                   <th>Status</th>
+                                   <th>Category</th>
+                                   <th>Description</th>
+                                   <th>Brands</th>
+                                   <th>Image</th>
                                    <th>Action</th>
                                </tr>
                            </thead>
@@ -45,21 +47,30 @@
                                <tr>
                                    <td>{{$row->id}}</td>
                                    <td>{{$row->category_name}}</td>
+                                   <td>{{$row->description}}</td>
+                                   <td><?php
+                                    $tmpBrands =  explode(';;;;;;', $row->data_brands);
+                                    foreach ($tmpBrands as $row2) {
+                                      $brandArr = str_replace(':::', '-',$row2);
+                                      echo $brandArr.', ';
+                                    }
+                                   ?>
+                                  </td>
                                    <td>
-                                    @if($row->status == 1)
-                                      <a href="#" class="btn bnt-sm btn-success">Active</a>
-                                    @else
-                                    <a href="#" class="btn bnt-sm btn-danger">InActive</a>
-                                    @endif
+                                    <img src="{{url('category/'.$row->banner)}}" width="100px">
                                   </td>
                                   <td>
-                                    <a href="{{url('admin/edit-category/'.$row->id)}}" class="btn btn-sm btn-info">Edit</a>
-                                    <a class="btn btn-sm btn-danger" href="{{url('admin/delete-category/'.$row->id)}}">Delete</a>
+                                    <a href="{{route('category.edit', $row->id)}}" class="btn btn-xs btn-info"><i class="fa fa-edit"></i> </a>
+                                    <a class="btn btn-xs btn-primary" href="{{url('admin/delete-category/'.$row->id)}}"> <i class="fa fa-eye"></i> </a>
                                   </td>
                                 </tr>
                             @endforeach
                            </tbody>
                        </table>
+                       <div class="d-flex justify-content-center">
+                          {!! $categories->links() !!}
+                      </div>
+
                    </div>
               </div>
             </div><!-- /.card -->

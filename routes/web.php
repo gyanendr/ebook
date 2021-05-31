@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\OffersController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Product\ProductsController;
+use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\BrandController;
 use App\Http\Controllers\Product\SubCategoryController;
 
@@ -58,5 +59,6 @@ Route::group(
 		Route::resource('advertise', AdvertisementController::class);
 
 		Route::resource('offer', OffersController::class);
+		Route::resource('category', CategoryController::class);
 			
 });	

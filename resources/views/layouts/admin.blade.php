@@ -165,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('category.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category Listing</p>
                 </a>
@@ -319,7 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; {{date('Y')}} <a href="https://adminlte.io">E-book-library</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; {{date('Y')}} <a href="https://adminlte.io">Ornile-Shop</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
