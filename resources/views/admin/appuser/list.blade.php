@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Users Listing</h1>
+            <h1 class="m-0">AppUsers Listing</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -29,9 +29,9 @@
                                <tr>
                                    <th>Name</th>
                                    <th>Email</th>
-                                   <th>Address</th>
                                    <th>Mobile Number</th>
-                                   <th>Status</th>
+                                   <th>Address</th>
+                                   <th>City</th>
                                    <th>Action</th>
                                </tr>
                            </thead>
@@ -39,27 +39,27 @@
 
                             @foreach($users as $row)
                                <tr>
-                                  <td>{{$row->name}}</td>
-                                  <td>{{$row->email}}</td>
-                                  <td>{{$row->address}}</td>
-                                  <td>{{$row->mobile_num}}</td>
-                                  <td>
-                                   @if($row->status == 1)
-                                   <a href="javascript:void(0)" class="btn btn-sm btn-success">Active</a>
-                                   @else
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-warning">InActive</a>
-                                   @endif
-                                   </td>
+                                   <td>{{$row->username.' '.$row->surname}}</td>
+                                   <td>{{$row->email}}</td>
+                                   <td>{{$row->phone}}</td>
+                                   <td>{{$row->address1}}</td>
+                                   <td>{{$row->city}}</td>
                                    <td>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
-
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-trash-alt"></i></a>
+                                    <form action="{{ route('appuser.destroy', $row->id) }}" method="POST" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-xs btn-danger"><i class="fa fa-trash-alt"></i></button>
+                                    </form>
                                     
-                                 </td>
+                                  </td>
                                </tr>
                             @endforeach
                            </tbody>
                        </table>
+
+                       <div class="d-flex justify-content-center">
+                          {!! $users->links() !!}
+                      </div>
                    </div>
               </div>
             </div><!-- /.card -->

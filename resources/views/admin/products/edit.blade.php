@@ -196,7 +196,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label> Tags </label>
-                              <input type="text" class="form-control @error('tags') is-invalid @enderror" value="{{!empty($getDetails->tag) ? $getDetails->tag : '' }}" id="tags" name="tags[]" data-role="tagsinput" required>
+                              <input type="text" class="form-control @error('tags') is-invalid @enderror" value="{{!empty($getDetails->tag) ? $getDetails->tag : '' }}" id="tags" name="tags[]" data-role="tagsinput">
 
                               @error('tags')
                                 <span class="invalid-feedback" role="alert">

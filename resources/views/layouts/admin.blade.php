@@ -14,6 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{url('backend')}}/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{url('backend')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('backend')}}/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/dist/css/custom.css">
@@ -23,6 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{url('backend')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/summernote/summernote-bs4.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{url('backend')}}/plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
@@ -54,7 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{url('backend')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Ornile | Shop</span>
     </a>
 
     <!-- Sidebar -->
@@ -113,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('appuser.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>App User Listing</p>
                 </a>
@@ -145,9 +147,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li> 
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('offer.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Coupon Listing</p>
+                  <p>Offers Listing</p>
                 </a>
               </li>
             </ul>
@@ -206,21 +208,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
-                Blog
+                Advertisement
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('advertise.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Blog Listing</p>
+                  <p>Advertisement Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('admin/advertise/category')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Blog Category</p>
+                  <p>Advertisement Category</p>
                 </a>
               </li>
             </ul>
@@ -333,6 +335,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{url('backend')}}/dist/js/bootstrap-tagsinput.min.js"></script>
 
 <!-- DataTables  & Plugins -->
+<script src="{{url('backend')}}/plugins/moment/moment.min.js"></script>
 <script src="{{url('backend')}}/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="{{url('backend')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="{{url('backend')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -347,6 +350,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{url('backend')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script src="{{url('backend')}}/plugins/summernote/summernote-bs4.min.js"></script>
 <script src="{{url('backend')}}/plugins/select2/js/select2.full.min.js"></script>
+<script src="{{url('backend')}}/plugins/daterangepicker/daterangepicker.js"></script>
 
 <script type="text/javascript">
   $(".table").DataTable({
@@ -365,6 +369,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   })
 
 $('#tags').tagsinput();
+var nowDate = new Date();
+var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+
+$('.offerDate').daterangepicker({
+  /*timePicker: true,*/
+  "singleDatePicker": true,
+   minDate : today,
+ /* timePickerIncrement: 30,*/
+  locale: {
+    format: 'DD-MM-YYYY'
+  }
+})
 
 </script>
 </body>

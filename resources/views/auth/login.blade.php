@@ -47,7 +47,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn customBtn">
                 {{ __('Login') }}
             </button>
           </div>

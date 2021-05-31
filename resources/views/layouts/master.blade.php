@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{url('backend')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('backend')}}/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{url('backend')}}/dist/css/custom.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">

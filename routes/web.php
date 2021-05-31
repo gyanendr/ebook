@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AppUserController;
+use App\Http\Controllers\Admin\AdvertisementController;
+use App\Http\Controllers\Admin\OffersController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Product\ProductsController;
 use App\Http\Controllers\Product\BrandController;
@@ -49,8 +52,11 @@ Route::group(
 		Route::post('/getsubcategory', [ProductsController::class, 'getSubCategory'])->name('getSubCategory');
 		
 		Route::resource('subcategory', SubCategoryController::class);
+	
+		Route::resource('appuser', AppUserController::class);
+	
+		Route::resource('advertise', AdvertisementController::class);
+
+		Route::resource('offer', OffersController::class);
 			
-
-
-		
 });	
