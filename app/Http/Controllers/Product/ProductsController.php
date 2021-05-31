@@ -4,344 +4,263 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Products;
 use App\Models\Category;
-use App\Models\Order;
-use App\Models\Books;
-use DB;
-use Auth;
-use Session;
-use Mail;
-use App;
+use App\Models\Brand;
+use App\Models\SubCategory;
+use App\Models\ProductImage;
+
 class ProductsController extends Controller
 {
-
     public function __construct(){
         $this->middleware(['auth']); 
     }
 
-    public function index(){
-        $bookCount = Books::count();
-        $usersCount = User::where(['role' => 2])->count();
-        $categoryCount = Category::count();
-        $orderCount = Order::count();
-        return view('admin.dashboard', compact('bookCount', 'usersCount', 'categoryCount', 'orderCount'));
-    }    
-
-    public function usersListing(){
-        $users = User::where('role', '!=', 1)->get();
-        return view('admin.user.list', compact('users'));
-    } 
-    
-    public function categoryListing(){
-        $categories = Category::all(); 
-        return view('admin.category.list', compact('categories'));
-    }   
-
-    public function addCategory(){
-        return view('admin.category.add');
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {   
+        $products = Products::select('id', 'title', 'category', 'sub_category', 'brand', 'current_stock', 'sale_price', 'purchase_price')->orderBy('id', 'desc')->paginate(10);
+        return view('admin.products.list', compact('products'));
     }
 
-    public function saveCategoryDetails( Request $request){
-        $insert = Category::Create([
-            'category_name' => $request->category_name,
-       ]);
-
-        if($insert){
-            $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'Category details added successfully !');
-            return redirect('admin/add-category');
-        }
-
-    } 
-
-    public function editCategory($id){
-        $getdetails = Category::where(['id' => $id])->first();
-        return view('admin.category.edit', compact('getdetails'));
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {   
+        $brands = Brand::select('id', 'name')->orderBy('name', 'asc')->get(); 
+        $categories = Category::select('id', 'category_name')->orderBy('category_name', 'asc')->get(); 
+        $subcategories = SubCategory::select('id', 'sub_category_name')->orderBy('sub_category_name', 'asc')->get(); 
+        return view('admin.products.add', compact('brands', 'categories', 'subcategories'));
     }
 
-    public function updateCategory( Request $request){
-        $id = $request->id;
-        $categoryName = $request->category_name;
-        $updateArr = ['category_name' => $categoryName];
-        $update = Category::find($id)->update($updateArr);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {   
+        $latestData = Products::latest('id', 'desc')->select('id')->first();
+        $lastId = ($latestData->id + 1);  
         
-        if($update){
-            $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'Category details updated successfully !');
-            return redirect('admin/edit-category/'.$id);
-        }
-    }
-
-    public function deleteCategory($id){
-       $delete = Category::where('id', $id)->delete();
-       if($delete){
-            return redirect('admin/category-listing/');
-       }
-    }
-
-    public function bookListing(){
-        $categories = Category::where(['status' => 1])->get();
-        $books = Books::where('book_status', '=', 1)->get();
-        return view('admin.book.list', compact('books', 'categories'));
-    }
-
-    public function addbook(){
-        $categories = Category::where(['status' => 1])->get();
-        return view('admin.book.add', compact('categories'));
-    }
-
-    public function savebookDetails(Request $request){
-        $bookImage = '';
+        $userId = auth()->user()->id;
+        $role = auth()->user()->role;
+        $addedby = json_encode(['type' => 'admin', 'id' => $userId]);
+        $imageArr = [];
         
-        if ($files = $request->file('book_image')) {
-           $bookImage = $files->getClientOriginalName();
-           $files->move(public_path().'/bookImage/', $bookImage);
-        }
 
-        $insert = Books::Create([
-            'book_name' => $request->book_name,
-            'book_image' => $bookImage,
-            'book_price' => $request->book_price,
-            'categories_id' => $request->category,
+        $input = request()->validate([
+            'title' => 'required|unique:product|max:255',
+            'description' => 'required',
+            'category' => 'required',
+            'subcategory' => 'required',
+            'brand' => 'required',
+            'sale_price' => 'required',
+            'purchase_price' => 'required',
+            'tags' => 'required',
+            'current_stock' => 'required',
+            'discount' => 'required',
+            'seo_title' => 'required',
+            'seo_descr' => 'required',
+            'image' =>'required',
+            'image.*' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
+        if ($request->hasFile('image')) {
+          $image = $request->file('image');
+          $i = 0;
+          foreach ($image as $files) {
+              $i++;  
+              $destinationPath = 'products/';
+              $file_name = $lastId.'_'.$i.'.'.$files->getClientOriginalExtension();
+              $files->move($destinationPath, $file_name);
+              $imageArr[] = $file_name;
+          }
+        }
+
+        $totalImage = !empty($imageArr) ? count($imageArr) : 0 ; 
+        
+        $insert = Products::Create([
+
+            'title' => $request->title ,
+            'description' => $request->description,
+            'category' => $request->category,
+            'sub_category' => $request->subcategory,
+            'num_of_imgs' => $totalImage,
+            'sale_price' => $request->sale_price,
+            'purchase_price' => $request->purchase_price,
+            'shipping_cost' => $request->shipping_cost,
+            'tag' => implode(', ', $request->tags),
+            'seo_title' => $request->seo_title,
+            'seo_description' => $request->seo_descr,
+            'brand' => $request->brand,
+            'current_stock' => $request->current_stock,
+            'discount' => $request->discount,
+            'added_by' => $addedby
+
+        ]);
+
+        $insertId = $insert->id;
+       
+        
+        if(isset($imageArr) && !empty($imageArr)){
+            foreach ($imageArr as $row) {
+                $insert = ProductImage::Create([
+                    'product_id' => $insertId,
+                    'image' => $row
+                ]);
+            }
+        }
+
         if($insert){
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'Books details added successfully !');
-            return redirect('admin/add-book');
+            $request->session()->flash('message.content', 'Product details added successfully !');
+            return redirect('admin/products');
         }
-        
     }
 
-    public function editbook($id){
-        $getdetails = Books::where(['id' => $id])->first();
-        $categories = Category::where(['status' => 1])->get();
-        return view('admin.book.edit', compact('categories', 'getdetails'));
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $getDetails = Products::select('id', 'title', 'category','description','sub_category','sale_price','num_of_imgs','purchase_price','shipping_cost','tag','seo_title','seo_description','brand','current_stock','discount')->where('id', $id)->first();
+        return view('admin.products.show', compact('getDetails'));
     }
 
-    public function updatebook( Request $request){
-      
-        $bookImage = !empty($request->input('hiddenBookImage')) ? $request->input('hiddenBookImage') : '';
-        
-        if ($files = $request->file('book_image')) {
-           $bookImage = $files->getClientOriginalName();
-           $files->move(public_path().'/bookImage/', $bookImage);
-        }
-        $id = $request->id;
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $brands = Brand::select('id', 'name')->orderBy('name', 'asc')->get(); 
+        $categories = Category::select('id', 'category_name')->orderBy('category_name', 'asc')->get(); 
+        $subcategories = SubCategory::select('id', 'sub_category_name')->orderBy('sub_category_name', 'asc')->get(); 
+        $getDetails = Products::select('id', 'title', 'category','description','sub_category','sale_price','num_of_imgs','purchase_price','shipping_cost','tag','seo_title','seo_description','brand','current_stock','discount')->where('id', $id)->first();
+        return view('admin.products.edit', compact('brands', 'categories', 'subcategories', 'getDetails'));
+    }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $userId = auth()->user()->id;
+        $role = auth()->user()->role;
+        $addedby = json_encode(['type' => 'admin', 'id' => $userId]);
+        $imageArr = [];
+        $totalImage = $request->totalImage;
+
+        $input = request()->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'category' => 'required',
+            'subcategory' => 'required',
+            'brand' => 'required',
+            'sale_price' => 'required',
+            'purchase_price' => 'required',
+            'tags' => 'required',
+            'current_stock' => 'required',
+            'discount' => 'required',
+            'seo_title' => 'required',
+            'seo_descr' => 'required',
+        ]);
+
+        if ($request->hasFile('image')) {
+          $image = $request->file('image');
+          $i = $totalImage;
+          foreach ($image as $files) {
+              $i++;  
+              $destinationPath = 'products/';
+              $file_name = $id.'_'.$i.'.'.$files->getClientOriginalExtension();
+              $files->move($destinationPath, $file_name);
+              $imageArr[] = $file_name;
+          }
+        }
+
+        $totalImage = !empty($imageArr) ? count($imageArr)+$totalImage : 0 ; 
+        
         $updateArr = [
-            'book_name' => $request->book_name,
-            'book_image' => $bookImage,
-            'book_price' => $request->book_price,
-            'categories_id' => $request->category,
+
+            'title' => $request->title ,
+            'description' => $request->description,
+            'category' => $request->category,
+            'sub_category' => $request->subcategory,
+            'num_of_imgs' => $totalImage,
+            'sale_price' => $request->sale_price,
+            'purchase_price' => $request->purchase_price,
+            'shipping_cost' => $request->shipping_cost,
+            'tag' => implode(', ', $request->tags),
+            'seo_title' => $request->seo_title,
+            'seo_description' => $request->seo_descr,
+            'brand' => $request->brand,
+            'current_stock' => $request->current_stock,
+            'discount' => $request->discount,
+            'added_by' => $addedby
+
         ];
 
-        $update = Books::find($id)->update($updateArr);
+        $update = Products::find($id)->update($updateArr);
         
+        if(isset($imageArr) && !empty($imageArr)){
+            foreach ($imageArr as $row) {
+                $insert = ProductImage::Create([
+                    'product_id' => $id,
+                    'image' => $row
+                ]);
+            }
+        }
+
         if($update){
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'Books details updated successfully !');
-            return redirect('admin/edit-book/'.$id);
+            $request->session()->flash('message.content', 'Product details added successfully !');
+            return redirect()->route('products.edit', $id);
         }
     }
 
-    public function deleteBook($id){
-        $delete = Books::where('id', $id)->delete();
-        if($delete){
-            return redirect('admin/book-listing/');
-       }
-    }
-
-
-    public function orderListing(){
-        $orders = Order::all();
-        $users = User::where(['role' => 2])->get();
-        $books = Books::all();
-        return view('admin.order.list', compact('orders', 'users', 'books'));
-    }
-
-    public function updateProfile( Request $request){
-        $userId = $request->input('userId');
-
-        $input = request()->validate([
-            'username' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,'.$userId,
-            'password' => 'required|min:8',
-        ]);
-
-        $updateArr =  [
-            'name' => $request->input('username'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-        ];
-
-       $update = User::where(['id' => $userId])->update($updateArr);
-       if($update){
-        $data = ['status' => 'success', 'msg' =>'Profile updated successfully !'];
-        echo json_encode($data);
-        exit();
-       }
-    }
-    
-//  divisions section start
-
-    public function divisionsList(){
-    	$userid = auth()->user()->id;
-    	$data['getdetails'] = Divisions::where(['user_id' => $userid,'status' =>1])->get();
-		return view('admin.divisions_list',$data);
-    }
-
-    public function adddivision(){
-		return view('admin.add_division');
-    }
-    
-      public function storeDivisionData(Request $request){
-    	$input = request()->validate([
-            'name' => 'required|max:255',
-        ]);
-
-		$userid = auth()->user()->id;
-        $insert =  Divisions::create([
-            'user_id' => $userid,
-            'name' => $request->input('name'),
-        ]);
-
-        $request->session()->flash('message.level', 'success');
-        $request->session()->flash('message.content', 'Division added successfully !');
-        return redirect('admin/add-division');
-    }
-
-	public function editDivision($id){
-    	$userid = auth()->user()->id;
-        $result = Divisions::where(['id' => $id,'user_id' => $userid])->first();
-        return view('admin.edit_division',compact('result'));
-    }
-
- 	public function updateDivisionData(Request $request){
-
-        $id = $request->id;    	
-		$input = request()->validate([
-		            'name' => 'required|max:255',
-		        ]);
-		$updateArr =  [
-	            'name' => $request->input('name'),
-        	];
-
-        $update = Divisions::where(['id' => $id])->update($updateArr);
-        $request->session()->flash('message.level', 'success');
-        $request->session()->flash('message.content', 'Division updated successfully !');
-        return redirect('admin/edit-division/'.$id);
-    }
-
-    public function deleteDivisionData( Request $request){
-        $id = $request->input('id');
-        $udpateArr = ['status' => 0];
-        $update = Divisions::where(['id'=>$id])->update($udpateArr);
-        if($update){
-            $data = ['status' => 'success', 'msg' => 'Division deleted successfully !'];
-            echo json_encode($data);
-            exit();
-        }
-    }
-
-    //  divisions section end
-
-
-    public function techniciansList(){
-    	$userid = auth()->user()->id;
-    	$data['getdetails'] = Technicians::where(['user_id' => $userid,'status' => 1])->get();
-		return view('admin.technicians_list', $data);
-    }
-
-    public function addtechnician(){
-		return view('admin.add_technician');
-    }
-    
-      public function storeTechnicianData(Request $request){
-
-        $technician_pic = '';
-        
-        if ($files = $request->file('technician_pic')) {
-           $technician_pic = $files->getClientOriginalName();
-           $files->move(public_path().'/technician_pic/', $technician_pic);
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $product = Products::findOrFail($id);
+        $product->delete();
+        $deleteImage = ProductImage::where('product_id', $id)->get();
+        if(!empty($deleteImage)){
+            foreach ($deleteImage as $image) {
+            $path = public_path('products/'.$image);
+            unlink($path);   
+            }
         }
 
-    	$input = request()->validate([
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|max:255|unique:company_technicians',
-            'phone_number' => 'required|max:255',
-
-        ]);
-
-		$userid = auth()->user()->id;
-        $insert = Technicians::create([
-           
-            'user_id' => $userid,
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'phone_number' => $request->input('phone_number'),
-            'technician_pic' => $technician_pic,
-        ]);
-
-        $request->session()->flash('message.level', 'success');
-        $request->session()->flash('message.content', 'Technician added successfully !');
-        return redirect('admin/add-technician');
+        $deleteImageData = ProductImage::where('product_id', $id)->delete();
+        return redirect()->route('products.index');
     }
 
-	public function editTechnician($id){
-    	$userid = auth()->user()->id;
-        $result = Technicians::where(['id' => $id,'user_id' => $userid])->first();
-        return view('admin.edit_technician',compact('result'));
+    public function getSubCategory(Request $request){
+    	$categoryId = $request->categoryId;
+    	$subcategories = Category::find($categoryId)->getSubCategory;
+    	return json_encode($subcategories);
     }
-
- 	public function updateTechnicianData(Request $request){
-        $primary_id = $request->primary_id;
-
-         $technician_pic = !empty($request->input('hiddenPic')) ? $request->input('hiddenPic') : '';
-        
-        if ($files = $request->file('technician_pic')) {
-           $technician_pic = $files->getClientOriginalName();
-           $files->move(public_path().'/technician_pic/', $technician_pic);
-        }
-
-
-        $input = request()->validate([
-          
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|max:255|unique:company_technicians,email,'.$primary_id,
-            'phone_number' => 'required|max:255',
-
-        ]);
-		$updateArr =  [
-			
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'phone_number' => $request->input('phone_number'),
-            'technician_pic' => $technician_pic
-        ];
-
-        $update = Technicians::where(['id' => $primary_id])->update($updateArr);
-        $request->session()->flash('message.level', 'success');
-        $request->session()->flash('message.content', 'Technician updated successfully !');
-        return redirect('admin/edit-technician/'.$primary_id);
-    }
-
-    public function deleteTechnicianData( Request $request){
-        $id = $request->input('id');
-        $udpateArr = ['status' => 0];
-        $update = Technicians::where(['id'=>$id])->update($udpateArr);
-        if($update){
-            $data = ['status' => 'success', 'msg' => 'Technician deleted successfully !'];
-            echo json_encode($data);
-            exit();
-        }
-    }
-
-    
-
 }

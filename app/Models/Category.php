@@ -9,16 +9,17 @@ use Illuminate\Notifications\Notifiable;
 class Category extends Authenticatable
 {
     use  Notifiable;
-    protected $table = 'categories';
+    protected $table = 'category';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'category_name',
-        'status',
+    protected $fillable = [ 'category_name', 'description', 'digital', 'banner', 'data_brands', 'data_vendors', 'data_subdets'
     ];
 
+    	public function getSubCategory(){
+          return $this->hasMany(SubCategory::class, 'category', 'id');   
+        }
 
 }

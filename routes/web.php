@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Product\ProductsController;
 use App\Http\Controllers\Product\BrandController;
+use App\Http\Controllers\Product\SubCategoryController;
 
 
 Route::get('/', function () {
@@ -26,11 +27,6 @@ Route::group(
 	], function() {
 		Route::match(['get', 'post'], '/', 'App\Http\Controllers\User\UserController@index');
 		Route::get('/dashboard', [UserController::class, 'index'])->name('index');
-		Route::get('/order-new-book', [UserController::class, 'orderNewBook'])->name('order-new-book');
-		Route::get('/borrow-book/{id}', [UserController::class, 'borrowBook'])->name('borrow-book');
-		Route::post('/order-book', [UserController::class, 'orderBook'])->name('order-book');
-		Route::get('/return-book/{id}', [UserController::class, 'returnBook'])->name('return-book');
-		Route::post('/pay-penalty', [UserController::class, 'payPenalty'])->name('pay-penalty');
 	});
 
 Route::group(
@@ -46,17 +42,14 @@ Route::group(
 		Route::get('/user-listing', [AdminController::class, 'usersListing'])->name('user-listing');
 		Route::get('/order-listing', [AdminController::class, 'orderListing'])->name('order-listing');
 		
-		
-		/****************************  Category functionality   *************************************/		
-		
-		
-		/****************************  Category functionality End  *************************************/	
-
-		/****************************  Brand functionality   *************************************/		
 		Route::resource('brands', BrandController::class);
 		
+		Route::resource('products', ProductsController::class);
 		
-		/****************************  Book functionality End  *************************************/	
+		Route::post('/getsubcategory', [ProductsController::class, 'getSubCategory'])->name('getSubCategory');
+		
+		Route::resource('subcategory', SubCategoryController::class);
+			
 
 
 		

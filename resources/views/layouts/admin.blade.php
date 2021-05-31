@@ -17,15 +17,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('backend')}}/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/dist/css/custom.css">
+  <link rel="stylesheet" href="{{url('backend')}}/dist/css/bootstrap-tagsinput.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{url('backend')}}/plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="{{url('backend')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{url('backend')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
     <ul class="navbar-nav ml-auto">
      
       <li class="nav-item">
@@ -85,14 +94,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+         
           <li class="nav-item">
-            <a href="{{url('/admin/user-listing')}}" class="nav-link {{(url()->current() == url('/admin/user-listing')) ? 'active' : '' }}">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
+              <p>
+                Users Listing
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{url('/admin/user-listing')}}" class="nav-link {{(url()->current() == url('/admin/user-listing')) ? 'active' : '' }}">
+               <i class="far fa-circle nav-icon"></i>
               <p>
                 Users Listing
               </p>
             </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>App User Listing</p>
+                </a>
+              </li>
+            </ul>
           </li> 
+
 
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -104,20 +132,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="pages/search/simple.html" class="nav-link">
+                <a href="{{route('products.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Product Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
+                <a href="{{route('brands.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Brand Listing</p>
                 </a>
               </li> 
 
               <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Coupon Listing</p>
                 </a>
@@ -135,13 +163,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="pages/search/simple.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
+                <a href="{{route('subcategory.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SubCategory Listing</p>
                 </a>
@@ -160,13 +188,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="pages/search/simple.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Order Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cancel Listing</p>
                 </a>
@@ -184,13 +212,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="pages/search/simple.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Blog Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Blog Category</p>
                 </a>
@@ -208,26 +236,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="pages/search/simple.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Admin/Sub-Admin</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Service Report</p>
                 </a>
               </li> 
               <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Income Report</p>
                 </a>
               </li> 
 
               <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pending Order list</p>
                 </a>
@@ -244,9 +272,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
          
           <li class="nav-item">
-            <a href="{{url('user/order-new-book')}}" class="nav-link {{(url()->current() == url('/user/order-new-book')) ? 'active' : '' }} ">
+            <a href="#" class="nav-link {{(url()->current() == url('/user/order-new-book')) ? 'active' : '' }} ">
               <i class="nav-icon fas fa-book"></i>
-              <p> Order New Book </p>
+              <p> Order List </p>
             </a>
           </li>
         
@@ -302,6 +330,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{url('backend')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{url('backend')}}/dist/js/adminlte.min.js"></script>
+<script src="{{url('backend')}}/dist/js/bootstrap-tagsinput.min.js"></script>
 
 <!-- DataTables  & Plugins -->
 <script src="{{url('backend')}}/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -316,11 +345,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{url('backend')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{url('backend')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{url('backend')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="{{url('backend')}}/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="{{url('backend')}}/plugins/select2/js/select2.full.min.js"></script>
 
 <script type="text/javascript">
   $(".table").DataTable({
       "responsive": true,
     })
+
+  $('.select2').select2();
+
+
+  $(function () {
+    $('#summernote').summernote({
+       placeholder: 'Product Description',
+        tabsize: 2,
+        height: 200
+    })
+  })
+
+$('#tags').tagsinput();
+
 </script>
 </body>
 </html>

@@ -43,9 +43,9 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                       <div class="inner">
-                        <h3>{{!empty($bookCount) ? $bookCount : '0'}}</h3>
+                        <h3>{{!empty($productCount) ? $productCount : '0'}}</h3>
 
-                        <p>Total Book</p>
+                        <p>Total Products</p>
                       </div>
                       <div class="icon">
                         <i class="ion ion-stats-bars"></i>

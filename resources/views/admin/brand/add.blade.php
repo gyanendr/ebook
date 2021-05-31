@@ -59,7 +59,7 @@
 
                         <div class="row">
                           <div class="col-sm-6">
-                                <img id="image" / width="100px">
+                              <img id="image" / width="100px">
                             <div class="form-group">
                                 <label> Brand Image </label> <br>
                                <input type="file" name="brand_image" id="brand_image" accept="image/*" required>

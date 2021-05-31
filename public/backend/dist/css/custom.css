@@ -7,3 +7,14 @@
 	color: #fff !important;
 }
 
+#preview img {
+    padding: 3px;
+}
+
+.invalid-feedback{
+	display: block;
+}
+
+li.select2-selection__choice {
+    background: #683CB8 !important;
+}
