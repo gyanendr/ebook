@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
-
-
 use App\Models\Customer;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -34,7 +32,8 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user = Customer::create($input);
         $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->username;
+        $success['userInfo'] =  $user;
+        Auth::login($user);
         return response()->json(['success'=>$success], $this->successStatus); 
     }
    
@@ -106,7 +105,7 @@ class UserController extends Controller
     }
 
     public function forgotPassword(Request $request){
-      $email =$request->input('email');
+      $email = $request->input('email');
       $user = Customer::where('email',$email)->first();
       $userId = $user->id;
       $data = [];
@@ -220,6 +219,24 @@ class UserController extends Controller
                 }
         }
              
+      public function updateAddress( Request $request){
+        $userId = Auth::user()->id;
+       
+        $updateArr = [
+         'address1' => !empty($request->address1) ? $request->address1 : '',
+          'address2' => !empty($request->address2) ? $request->address2 : '',
+          'city' => !empty($request->city) ? $request->city : '',
+          'zip' => !empty($request->zip) ? $request->zip : '',
+          'langlat' => !empty($request->langlat) ? $request->langlat : '',
+        ];
+       
+        $update = Customer::find($userId)->update($updateArr);
+        if($update){
+          return response()->json(['success'=>' Address updated successfully '],$this->successStatus);
+         }else{
+          return response()->json(['error'=>'Unauthorised'], 401); 
+         } 
+      }       
      
 
 }

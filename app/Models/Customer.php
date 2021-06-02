@@ -38,6 +38,12 @@ class Customer extends Authenticatable
         'password',
         'address1',
         'user_otp',
+        'address2',
+        'city',
+        'zip',
+        'langlat',
+        'state',
+        'country',
         
     ];
 

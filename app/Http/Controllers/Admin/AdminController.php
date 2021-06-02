@@ -15,6 +15,7 @@ use Auth;
 use Session;
 use Mail;
 use App;
+use Validator;
 class AdminController extends Controller
 {
 
@@ -34,6 +35,20 @@ class AdminController extends Controller
         $users = User::where('role', '!=', 1)->get();
         return view('admin.user.list', compact('users'));
     } 
+
+    public function addUserForm(){
+       return view('admin.user.add');
+    }
+
+    public function saveUserDetails(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'email' => 'required|email|unique:user',
+            'phone'=> ['required', 'numeric', 'min:10'],
+            'password' => 'required',
+        ]);
+    }
     
 
     

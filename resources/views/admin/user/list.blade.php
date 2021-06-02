@@ -23,6 +23,10 @@
           <div class="col-lg-12">
             <div class="card card-primary card-outline">
               <div class="card-body">
+                 <div class="text-right">
+                    <a href="{{url('admin/add-user')}}" class="btn bnt-sm customBtn"> <i class="fa fa-plus"></i> Add New User</a>
+                  </div>
+                  <br>
                    <div class="col-lg-12">
                       <table id="example1" class="table table-bordered table-striped" style="width: 100%">
                            <thead>

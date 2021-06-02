@@ -44,6 +44,8 @@ Route::group(
 		Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
 		
 		Route::get('/user-listing', [AdminController::class, 'usersListing'])->name('user-listing');
+		Route::get('/add-user', [AdminController::class, 'addUserForm'])->name('add-user');
+		Route::post('/add-user', [AdminController::class, 'saveUserDetails'])->name('add-user');
 		Route::get('/order-listing', [AdminController::class, 'orderListing'])->name('order-listing');
 		
 		Route::resource('brands', BrandController::class);

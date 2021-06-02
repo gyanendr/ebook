@@ -1,116 +1,121 @@
-@extends('layouts.layouts')
+@extends('layouts.admin')
 
 @section('content')
-<!--end::Top-->
-<!--begin::Bottom-->
-
-</div>
-<style type="text/css">
-    .error{color: red;}
-    .add_company_div{
-        background-color: #fff;
-        min-height: 400px;
-    }
-    #companyForm{
-            margin-left: 6%;
-    }
-    #kt_content{
-        background-color: #fff;
-    }
-</style>
-    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <!--begin::Entry-->
-        <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
-            <div class="container">
-                <h4>Create company account</h4>
-                @if(session()->has('message.level'))
-                    <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button> 
-                            <strong>Company Created successfully !</strong>
-                    </div>
-                 @endif
-                <div class="text-right">
-                    <a href="{{'company-account-list'}}"> <span class="menu-text"><i class="icon-md fas fa-list"></i>&nbsp;&nbsp;&nbsp;Listing</span> </a>
-                </div>
-                
-                <div class="row mt-0 mt-lg-3 add_company_div">
-                 <form method="post" name="companyForm" class="form-horizontal" action="{{url('super-admin/add-company-account')}}" id="companyForm" autocomplete="off" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <div class="card-body">
-                        <div class="row">
-                           <div class="col-md-4">
-                                 <div class="form-group">
-                                    <label>Username :</label>
-                                    <input type="text" name="username" value="{{ old('username') }}" class="form-control form-control-solid" placeholder="Enter username" required="" autocomplete="off">
-                                    @error('username')
-                                        <div class="error">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                        
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Email address:</label>
-                                    <input type="email" name="email" value="{{ old('email') }}" class="form-control form-control-solid" placeholder="Enter email" required="">
-                                    @error('email')
-                                        <div class="error">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                            <label>Password:</label>
-                            <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter password" required="">
-                            @error('password')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div>
-                            </div>
-                       
-                        
-
-                        
-                    </div>
-                    <div class="row">
-                            <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Company name:</label>
-                            <input type="text" name="company_name" value="{{ old('company_name') }}" class="form-control form-control-solid" placeholder="Enter company name" required="">
-                            @error('company_name')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                                                <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Location:</label>
-                            <input type="text" name="location" class="form-control form-control-solid" placeholder="Enter location" value="{{ old('location') }}" required="">
-                            @error('location')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div> 
-                    </div>
-                                                <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Company logo:</label>
-                            <input type="file" class="form-control form-control-solid" 
-                            name="company_logo" id="company_logo" accept="image/*">
-                            @error('company_logo')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    </div>
-                        <button type="submit" class="btn btn-primary mr-2">Add Details</button>
-                    </div>
-                   </form>
-              </div>
-            </div>
-           
-        </div>
-        
+ <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Add New User</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Add User</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-    
 
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card card-primary card-outline">
+              <div class="card-body">
+                <div class="col-lg-12">
+                   @if(session()->has('message.level'))
+                        @if ($message = Session::get('message.content'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button> 
+                                <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
+                  @endif
+
+                  <div class="text-right">
+                    <a href="{{url('admin/user-listing')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> &nbsp;Users List</a>
+                  </div>
+                  <br>
+                </div>
+                   <div class="col-lg-12">
+                      <form method="POST" name="brand-form" id="brand-form" action="{{url('admin/add-user')}}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Name </label>
+                                <input type="text" name="username" class="form-control" placeholder="Enter Username" required>
+                            </div>    
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label> Email </label>
+                             <input type="email" name="email" class="form-control" placeholder="Enter email address">
+                            </div>    
+                          </div> 
+
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label> Password </label>
+                             <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                            </div>    
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Address </label>
+                                <input type="text" name="address" class="form-control" placeholder="Enter Address" required>
+                            </div>    
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label> Mobile No </label>
+                             <input type="text" name="phone" class="form-control" placeholder="Enter Mobile No.">
+                            </div>    
+                          </div> 
+
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label> Status </label>
+                            <div class="form-group clearfix">
+                                  <div class="icheck-primary d-inline">
+                                    <input type="radio" id="radioPrimary1" value="1" name="status" checked="">
+                                    <label for="radioPrimary1">Active
+                                    </label>
+                                  </div>
+
+                                  <div class="icheck-primary d-inline">
+                                    <input type="radio" id="radioPrimary2" value="0" name="status">
+                                    <label for="radioPrimary2">InActive
+                                    </label>
+                                  </div>
+                                </div>
+                            </div>    
+                          </div>
+                        </div>
+
+
+                      
+                        
+                      <input type="submit" name="submit" value="submit" class="btn btn-md customBtn">  
+                      </form>
+                   </div>
+              </div>
+            </div><!-- /.card -->
+          </div>
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+<script type="text/javascript">
+  document.getElementById('brand_image').onchange = function () {
+  var src = URL.createObjectURL(this.files[0])
+  document.getElementById('image').src = src
+}
+</script>
 @endsection           
