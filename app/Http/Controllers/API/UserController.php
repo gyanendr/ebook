@@ -52,7 +52,7 @@ class UserController extends Controller
             return response()->json(['success' => $success], $this->successStatus);
         } 
         else{ 
-            return response()->json(['error'=>'Unauthorised'], 401); 
+            return response()->json(['error'=>'Wrong Credentials please try again'], 401); 
         } 
     }
 
@@ -173,7 +173,7 @@ class UserController extends Controller
 
 
         public function updateProfile(Request $request) {  
-          $userId = Auth::user()->id
+          $userId = Auth::user()->id;
             $validator = Validator::make($request->all(), [
             'username' => 'required',
             'surname'  => 'required',

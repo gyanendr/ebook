@@ -50,25 +50,26 @@ class CategoryController extends Controller
         $tempData = array();
         $data_subdets = !empty($request->data_subdets) ? implode(',', $request->data_subdets) : '';
         $getSubCateData = SubCategory::whereIn('id', $request->data_subdets)->get();
-        
+
         foreach ($getSubCateData as $row) {
             $brandsArr = json_decode($row->brand);
             $brandsIdsArr = implode(',', $brandsArr);
-
+            if(!empty($brandsIdsArr)){
             $sql = "SELECT GROUP_CONCAT(CONCAT(id,':::',name)) as brands FROM `brand` WHERE id IN ($brandsIdsArr)";
             $brands = DB::SELECT($sql);
-
+            $brands = !empty($brands) ? $brands[0]->brands : '' ;
+            }
             $sql2 = "SELECT min(`sale_price`) as min_price , max(`sale_price`) as max_price FROM `product` WHERE`sub_category` = $row->id GROUP by `sub_category`";
             $getMinMax = DB::select($sql2);
+            $min = !empty($getMinMax) ? $getMinMax[0]->min_price : '0';
+            $max = !empty($getMinMax) ? $getMinMax[0]->max_price : '0';
+            
+            $dataArr = ['sub_id' => $row->id, 'sub_category_name' => $row->sub_category_name, 'min' => $min, 'max' => $max, 'brands' => $brands];
+            $tempData[] = $dataArr;
 
-            $tempData['sub_id'] = $row->id;
-            $tempData['sub_category_name'] = $row->id;
-            $tempData['min'] = !empty($getMinMax) ? $getMinMax[0]->min_price : '0' ;
-            $tempData['max'] = !empty($getMinMax) ? $getMinMax[0]->max_price : '0' ;
-            $tempData['brands'] = !empty($brands) ? $brands[0]->brands : '';
-        }    
+        }
+       
         $tempData = json_encode($tempData);
-        $subData = !empty($tempData) ? '['.$tempData.']' : ''; 
         $latestData = Category::latest('id', 'desc')->select('id')->first();
         $lastId = ($latestData->id + 1);    
         
@@ -86,7 +87,7 @@ class CategoryController extends Controller
             'digital' => $request->digital,
             'banner' => $categoryImage,
             'data_brands' => $data_brands,
-            'data_subdets' => $subData,
+            'data_subdets' => $tempData,
         ]);
 
         if($insert){

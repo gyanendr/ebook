@@ -38,24 +38,128 @@
                   </div>
                   <br>
                 </div>
-                   <div class="col-lg-12">
-                      <form method="post" name="update-category-form" id="update-category-form" action="{{url('admin/update-category')}}">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                          <label> Category Name </label>
-                          <input type="text" value="{{$getdetails->category_name}}" name="category_name" class="form-control" placeholder="Enter Category Name" required>
+                    <form method="post" name="category-form" id="category-form" action="{{route('category.update',$getDetails->id)}}" enctype="multipart/form-data">
+                      @method('PATCH')   
+                     {{ csrf_field() }}
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label> Category </label>
+                              <input type="text" name="category_name" class="form-control" placeholder="Enter Category Name " value="{{$getDetails->category_name}}" required>
+                              @error('category_name')
+                              <div class="alert alert-danger" role="alert">
+                                 {{$message}}    
+                              </div>
+                              @enderror
+                           </div>
                         </div>
-                      <input type="submit" name="submit" value="submit" class="btn btn-success">  
-                      <input type="hidden" name="id" value="{{$getdetails->id}}">
-                      </form>
-                   </div>
-              </div>
-            </div><!-- /.card -->
-          </div>
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label> Digital </label>
+                              <input type="text" id="digital" name="digital" class="form-control" placeholder="Enter Digital" value=" {{$getDetails->digital}}" required>
+                              @error('digital')
+                              <div class="alert alert-danger" role="alert">
+                                 {{$message}}    
+                              </div>
+                              @enderror
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <label for="" class="">Brand </label>
+                           <select id="data_brands" name="data_brands[]" class="form-control select2 "  multiple=",multiple" >
+                        
+                              @foreach($brands as $brand)
+                              <option  value="{{$brand->id.':::'.$brand->name}}" {{(in_array($brand->id,$brand_id)) ? 'selected=' : ''}}> 
+                                 {{$brand->name}}
+                              </option>
+                              @endforeach
+                           </select>
+                           @error('data_brands')
+                           <div class="alert alert-danger" role="alert">
+                              {{$message}}    
+                           </div>
+                           @enderror                       
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              <label for="" class="">SubCategory </label>
+                              <select id="data_subdets" name="data_subdets[]" class="form-control select2" multiple="multiple" >
+                                 <option value="" >Select</option>
+                  
+                                     @foreach($subcategories as $subcategory)      
 
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
+
+                                 <option value="{{$subcategory->id}}" {{(in_array($subcategory->id,$sub_cat)) ? 'selected=' : ''}}> {{$subcategory->sub_category_name}}</option>
+                                 @endforeach  
+                                                     
+                              </select>
+                              @error('data_subdets')
+                              <div class="alert alert-danger" role="alert">
+                                 {{$message}}    
+                              </div>
+                              @enderror  
+                           </div>
+                        </div>
+                       
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label> Image </label>
+                              <input type="file" class="form-control"  id="category_image" name="category_image" value="{{$getDetails->banner}}" accept="image/*">
+                              @error('category_image')
+                              <div class="alert alert-danger" role="alert">
+                                 {{$message}}    
+                              </div>
+                              @enderror
+                           </div>
+                           @error('banner')
+                           <div class="alert alert-danger" role="alert">
+                              {{$message}}    
+                           </div>
+                           @enderror 
+                          @if(!empty($getDetails->banner))
+                            <img src="{{url('category/'.$getDetails->banner)}}" id="image" width="100px">
+                          @endif 
+                          <input type="hidden" name="hiddenBanner" value="{{$getDetails->banner}}">
+                          
+                        </div>
+
+                        
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label>Description  </label>                           
+                              <textarea class="form-control rounded-0" id="description" name="description" value="" rows="3"> {{$getDetails->description}}</textarea>
+                              @error('description')
+                              <div class="alert alert-danger" role="alert">
+                                 {{$message}}    
+                              </div>
+                              @enderror  
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-4 ">
+                           <div class="form-group ">
+                              <input type="submit" name="submit"   value="submit" class="btn customBtn btn-block "> 
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+            <!-- /.card -->
+         </div>
+      </div>
+      <!-- /.row -->
+   </div>
+   <!-- /.container-fluid -->
+</div>
+<script type="text/javascript">
+  document.getElementById('category_image').onchange = function () {
+  var src = URL.createObjectURL(this.files[0])
+  document.getElementById('image').src = src
+}
+</script>
 
 @endsection           

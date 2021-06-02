@@ -4,8 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\ForgotPasswordController;
-use App\Http\Controllers\API\ChangepasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +23,7 @@ Route::get('login', [UserController::class, 'login'])->name('login');
 
      
 Route::middleware('auth:customerapi')->group( function () {
+
    Route::get('/userdetails',[UserController::class,'userdetails']);
    Route::get('/logout',[UserController::class,'logout']);
    Route::post('/change-password',[UserController::class,'restPassword']);
@@ -33,5 +32,9 @@ Route::middleware('auth:customerapi')->group( function () {
    Route::post('/update-password',[UserController::class,'updatePassword']);
    Route::post('/update-profile',[UserController::class,'updateProfile']);
    Route::get('/edit-user-details',[UserController::class,'edituserDetails']);
+   Route::get('/product-listing',[ProductController::class,'index']);
+   Route::get('/product-details/{productId}',[ProductController::class,'getProductDetails']);
+
+
 
 });
