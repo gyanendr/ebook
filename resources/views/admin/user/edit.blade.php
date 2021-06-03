@@ -1,116 +1,139 @@
-@extends('layouts.layouts')
+@extends('layouts.admin')
 
 @section('content')
-<!--end::Top-->
-<!--begin::Bottom-->
-
-</div>
-<style type="text/css">
-    .error{color: red;}
-    .add_company_div{
-        background-color: #fff;
-        min-height: 400px;
-    }
-    #companyForm{
-            margin-left: 6%;
-    }
-</style>
-    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <!--begin::Entry-->
-        <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
-            <div class="container">
-                <h4>Update company account</h4>
-                @if(session()->has('message.level'))
-                    <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button> 
-                            <strong>Company Updated successfully !</strong>
-                    </div>
-                 @endif
-               
-                <div class="row mt-0 mt-lg-3 add_company_div">
-                 <form method="post" name="companyForm" class="form-horizontal" action="{{url('super-admin/update-company-account')}}" id="companyForm" autocomplete="off" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="symbol symbol-60 symbol-circle symbol-xl-90">
-                            <img src="{{url('public/companyLogo/'.$result->company_logo) }}" width="100px">
-                        </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Username :</label>
-                            <input type="text" name="username" value="{{ !empty($result->name) ? $result->name : '' }}" class="form-control form-control-solid" placeholder="Enter username" required="" autocomplete="off">
-                            @error('username')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        </div>
-                        <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Email address:</label>
-                            <input type="email" name="email" value="{{ !empty($result->email) ? $result->email : '' }}" class="form-control form-control-solid" placeholder="Enter email" required="">
-                            @error('email')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-<div class="col-md-4">
-                        <div class="form-group">
-                            <label>Password:</label>
-                            <input type="text" name="password" class="form-control form-control-solid" placeholder="Enter password" value="{{ !empty($result->company_pass) ? $result->company_pass : '' }}" required="">
-                            @error('password')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Company name:</label>
-                            <input type="text" name="company_name" value="{{ !empty($result->company_name) ? $result->company_name : '' }}" class="form-control form-control-solid" placeholder="Enter company name" required="">
-                            @error('company_name')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-<div class="col-md-4">
-                        <div class="form-group">
-                            <label>Location:</label>
-                            <input type="text" name="location" class="form-control form-control-solid" placeholder="Enter location" value="{{ !empty($result->location) ? $result->location : '' }}" required="">
-                            @error('location')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div> 
-</div>
-<div class="col-md-4">
-                        <div class="form-group">
-                            <label>Company logo:</label>
-                            <input type="file" class="form-control form-control-solid" 
-                            name="company_logo" id="company_logo" accept="image/*">
-                            <input type="hidden" name="hiddenCompanyLogo" value="{{ !empty($result->company_logo) ? $result->company_logo : '' }}">
-                            @error('company_logo')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    </div>
-                    <input type="hidden" name="companyId" value="{{$result->company_id}}">
-                    <input type="hidden" name="userId" value="{{$result->id}}">
-                        <button type="submit" class="btn btn-primary mr-2">Update Details</button>
-                    </div>
-                   </form>
-              </div>
-            </div>
-           
-        </div>
-        
+ <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Edit User</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Edit User</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-    
 
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card card-primary card-outline">
+              <div class="card-body">
+                <div class="col-lg-12">
+                   @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+
+                  <div class="text-right">
+                    <a href="{{url('admin/user-listing')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> &nbsp;Users List</a>
+                  </div>
+                  <br>
+                </div>
+                   <div class="col-lg-12">
+                      <form method="POST" name="brand-form" id="brand-form" action="{{url('admin/edit-user')}}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Name </label>
+                                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Enter Username" value="{{ $getDetails->name}}" required>
+                                @error('username')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+
+                            </div>    
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label> Email </label>
+                             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter email address" value="{{ $getDetails->email }}" required>
+
+                             @error('email')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+
+                            </div>    
+                          </div> 
+
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label> Password </label>
+                             <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter Password" value="{{$getDetails->user_pass}}" required>
+                             @error('password')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+
+                            </div>    
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Address </label>
+                                <input type="text" name="address" value="{{ $getDetails->address }}" class="form-control" placeholder="Enter Address">
+                            </div>    
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label> Mobile No </label>
+                             <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ $getDetails->mobile_num }}" placeholder="Enter Mobile No.">
+                              @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>    
+                          </div> 
+
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label> Status </label>
+                            <div class="form-group clearfix">
+                                  <div class="icheck-primary d-inline">
+                                    <input type="radio" id="radioPrimary1" value="1" name="status" {{($getDetails->status == 1) ? 'checked' : ''}}>
+                                    <label for="radioPrimary1">Active
+                                    </label>
+                                  </div>
+
+                                  <div class="icheck-primary d-inline">
+                                    <input type="radio" id="radioPrimary2" value="0" name="status" {{($getDetails->status == 0) ? 'checked' : ''}}>
+                                    <label for="radioPrimary2">InActive
+                                    </label>
+                                  </div>
+                                </div>
+                            </div>    
+                          </div>
+                        </div>
+                    <input type="hidden" name="userId" value="{{$getDetails->id}}">                        
+                      <input type="submit" name="submit" value="Update" class="btn btn-md customBtn">  
+                      </form>
+                   </div>
+              </div>
+            </div><!-- /.card -->
+          </div>
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+<script type="text/javascript">
+  document.getElementById('brand_image').onchange = function () {
+  var src = URL.createObjectURL(this.files[0])
+  document.getElementById('image').src = src
+}
+</script>
 @endsection           

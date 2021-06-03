@@ -46,6 +46,8 @@ Route::group(
 		Route::get('/user-listing', [AdminController::class, 'usersListing'])->name('user-listing');
 		Route::get('/add-user', [AdminController::class, 'addUserForm'])->name('add-user');
 		Route::post('/add-user', [AdminController::class, 'saveUserDetails'])->name('add-user');
+		Route::get('/edit-user/{id}', [AdminController::class, 'editUser'])->name('edit-user');
+		Route::post('/edit-user', [AdminController::class, 'updateUserDetails'])->name('edit-user');
 		Route::get('/order-listing', [AdminController::class, 'orderListing'])->name('order-listing');
 		
 		Route::resource('brands', BrandController::class);

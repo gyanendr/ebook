@@ -18,3 +18,7 @@
 li.select2-selection__choice {
     background: #683CB8 !important;
 }
+
+#example1_paginate {
+    display: none !important;
+}

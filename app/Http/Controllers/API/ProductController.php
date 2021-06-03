@@ -102,9 +102,11 @@ class ProductController extends Controller
     }
 
     public function cartListing(){
+        $userId = Auth::user()->id;
         $getCartItems['cartItems'] = CartItem::select('product.title','cart.qty','cart.price', DB::raw('group_concat(product_Image.image) as thumbnail'))->
         leftJoin('product_Image', 'cart.product_id', '=', 'product_Image.product_id')->
         leftJoin('product', 'cart.product_id', '=', 'product.id')->
+        where('cart.user_id', $userId)->
         groupBy('cart.product_id')->get();
         return response()->json(['success' => $getCartItems], $this->successStatus);
        

@@ -21,8 +21,13 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <div class="card card-primary card-outline">
+            <div class="card card-warning card-outline">
               <div class="card-body">
+                @if(session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session()->get('message') }}
+                    </div>
+                @endif
                  <div class="text-right">
                     <a href="{{url('admin/add-user')}}" class="btn bnt-sm customBtn"> <i class="fa fa-plus"></i> Add New User</a>
                   </div>
@@ -55,10 +60,8 @@
                                    @endif
                                    </td>
                                    <td>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
-
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-trash-alt"></i></a>
-                                    
+                                    <a href="{{url('admin/edit-user/'.$row->id)}}" class="btn btn-xs customBtn"><i class="fa fa-edit"></i></a>
+                                                                      
                                  </td>
                                </tr>
                             @endforeach

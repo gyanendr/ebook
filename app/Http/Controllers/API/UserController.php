@@ -110,7 +110,7 @@ class UserController extends Controller
       $userId = $user->id;
       $data = [];
       if($user){
-        $otp = rand(0,1000000);
+        $otp = random_int(100000, 999999);
         $data = array("name" => $user->username, 'email' => $user->email,"otp" => $otp);
         
         $mail = Mail::send('email.forgetPassword',['data' => $data] , function ($m) use ($data) {
@@ -134,6 +134,8 @@ class UserController extends Controller
       $user = Customer::where(['email' => $email, 'user_otp' => $otp])->first();
       if(!$user){
         return response()->json(['error'=>'Invalid OTP please try again'], $this->successStatus); 
+      }else{
+      	return response()->json(['success' => 'OTP verification successfully !'], $this->successStatus);
       }
     }
 

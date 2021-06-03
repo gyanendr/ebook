@@ -21,7 +21,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <div class="card card-primary card-outline ">
+            <div class="card card-warning card-outline ">
               <div class="card-body">
                 <div class="col-lg-12">
                    @if(session()->has('message.level'))
@@ -69,7 +69,7 @@
                                   <td>
                                     <a href="{{route('products.edit', $row->id)}}" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
 
-                                    <a href="{{route('products.show', $row->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a href="{{route('products.show', $row->id)}}" class="btn btn-xs customBtn"><i class="fa fa-eye"></i></a>
                                     
                                     <form action="{{ route('products.destroy', $row->id) }}" method="POST" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">

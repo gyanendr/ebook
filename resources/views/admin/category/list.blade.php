@@ -21,7 +21,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <div class="card card-primary card-outline">
+            <div class="card card-warning card-outline">
               <div class="card-body">
                 <div class="col-lg-12">
                   <div class="text-right">
@@ -61,7 +61,7 @@
                                   </td>
                                   <td>
                                     <a href="{{route('category.edit', $row->id)}}" class="btn btn-xs btn-info"><i class="fa fa-edit"></i> </a>
-                                    <a class="btn btn-xs btn-primary" href="{{url('admin/delete-category/'.$row->id)}}"> <i class="fa fa-eye"></i> </a>
+                                    <a class="btn btn-xs customBtn" href="{{url('admin/delete-category/'.$row->id)}}"> <i class="fa fa-eye"></i> </a>
                                   </td>
                                 </tr>
                             @endforeach

@@ -45,20 +45,39 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Name </label>
-                                <input type="text" name="username" class="form-control" placeholder="Enter Username" required>
+                                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Enter Username" value="{{ old('username') }}" required>
+                                @error('username')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+
                             </div>    
                           </div>
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label> Email </label>
-                             <input type="email" name="email" class="form-control" placeholder="Enter email address">
+                             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter email address" value="{{ old('email') }}" required>
+
+                             @error('email')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+
                             </div>    
                           </div> 
 
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label> Password </label>
-                             <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter Password" required>
+                             @error('password')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+
                             </div>    
                           </div>
                         </div>
@@ -68,13 +87,18 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Address </label>
-                                <input type="text" name="address" class="form-control" placeholder="Enter Address" required>
+                                <input type="text" name="address" value="{{ old('address') }}" class="form-control" placeholder="Enter Address">
                             </div>    
                           </div>
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label> Mobile No </label>
-                             <input type="text" name="phone" class="form-control" placeholder="Enter Mobile No.">
+                             <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Enter Mobile No.">
+                              @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>    
                           </div> 
 
