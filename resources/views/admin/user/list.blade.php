@@ -41,6 +41,7 @@
                                    <th>Address</th>
                                    <th>Mobile Number</th>
                                    <th>Status</th>
+                                   <th>Role</th>
                                    <th>Action</th>
                                </tr>
                            </thead>
@@ -59,6 +60,7 @@
                                     <a href="javascript:void(0)" class="btn btn-sm btn-warning">InActive</a>
                                    @endif
                                    </td>
+                                   <td> {{ucfirst($row->roleName->name)}} </td>
                                    <td>
                                     <a href="{{url('admin/edit-user/'.$row->id)}}" class="btn btn-xs customBtn"><i class="fa fa-edit"></i></a>
                                                                       

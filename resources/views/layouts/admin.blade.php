@@ -366,6 +366,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         tabsize: 2,
         height: 200
     })
+
+    $('.summernote').summernote({
+       placeholder: 'Advertisement Description',
+        tabsize: 2,
+        height: 200
+    })
   })
 
 $('#tags').tagsinput();
@@ -373,10 +379,8 @@ var nowDate = new Date();
 var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
 
 $('.offerDate').daterangepicker({
-  /*timePicker: true,*/
   "singleDatePicker": true,
-   minDate : today,
- /* timePickerIncrement: 30,*/
+  minDate : today,
   locale: {
     format: 'DD-MM-YYYY'
   }

@@ -101,6 +101,26 @@
 
                           <div class="col-sm-4">
                             <div class="form-group">
+                              <label> Role </label>
+                              <select class="form-control" name="user_role">
+                                <option value="">Please select</option>
+                                @foreach($roles as $role)
+                                  <option value="{{$role->id}}" {{($role->id == $getDetails->user_role) ? 'selected' : ''}} >{{ucfirst($role->name)}}</option>
+                                @endforeach
+                              </select>
+
+                              @error('user_role')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                
+                            </div>    
+                          </div>
+
+
+                          <div class="col-sm-4">
+                            <div class="form-group">
                               <label> Status </label>
                             <div class="form-group clearfix">
                                   <div class="icheck-primary d-inline">

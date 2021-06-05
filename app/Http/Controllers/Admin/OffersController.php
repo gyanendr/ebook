@@ -122,7 +122,7 @@ class OffersController extends Controller
         if($update){
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'Offers details updated successfully !');
-             return redirect()->route('offer.edit', $id);
+            return redirect()->route('offer.edit', $id);
         }
     }
 

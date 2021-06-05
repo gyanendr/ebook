@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-
+use App\Notifications\OffersNotification;
 
 class User extends Authenticatable
 {
@@ -26,8 +26,12 @@ class User extends Authenticatable
         'password',
         'user_pass',
         'status',
+        'user_role',
         
     ];
+
+
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -47,4 +51,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roleName(){
+        return $this->belongsTo(Role::class, 'user_role', 'id');
+    }
 }

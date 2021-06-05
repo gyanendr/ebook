@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Role;
 use App\Models\Products;
 use App\Models\Brand;
 use App\Models\SubCategory;
@@ -38,7 +39,8 @@ class AdminController extends Controller
     } 
 
     public function addUserForm(){
-       return view('admin.user.add');
+       $roles = Role::orderBy('name', 'asc')->get();
+       return view('admin.user.add', compact('roles'));
     }
 
     public function saveUserDetails(Request $request){
@@ -48,6 +50,7 @@ class AdminController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone'=> ['required', 'numeric', 'min:10'],
             'password' => ['required', 'string', 'min:8'],
+            'user_role' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -63,6 +66,7 @@ class AdminController extends Controller
             'user_pass' => $request->password,
             'role' => 2,
             'status' => $request->status,
+            'user_role' => $request->user_role,
         ]);
 
         if($insert){
@@ -72,8 +76,9 @@ class AdminController extends Controller
     }
 
     public function editUser($id){
+        $roles = Role::all();
         $getDetails = User::find($id);
-        return view('admin.user.edit', compact('getDetails'));
+        return view('admin.user.edit', compact('getDetails', 'roles'));
     }
 
     public function updateUserDetails(Request $request){
@@ -84,6 +89,7 @@ class AdminController extends Controller
             'email' => ['required', 'string', 'email', 'max:255','unique:users,email,'.$user->id.',id'],
             'phone'=> ['required', 'numeric', 'min:10'],
             'password' => ['required', 'string', 'min:8'],
+            'user_role' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -99,6 +105,7 @@ class AdminController extends Controller
             'user_pass' => $request->password,
             'role' => 2,
             'status' => $request->status,
+            'user_role' => $request->user_role,
         ];
         $update = User::find($id)->update($updateArr); 
 

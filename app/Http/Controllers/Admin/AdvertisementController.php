@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Advertisement;
+use App\Models\AdsCategory;
+use Illuminate\Support\Facades\Validator;
 
 class AdvertisementController extends Controller
 {   
@@ -18,7 +21,8 @@ class AdvertisementController extends Controller
      */
     public function index()
     {
-        //
+        $advertisements = Advertisement::paginate(10);
+        return view('admin.advertisement.list', compact('advertisements'));
     }
 
     /**
@@ -28,7 +32,8 @@ class AdvertisementController extends Controller
      */
     public function create()
     {
-        //
+        $adsCategories = AdsCategory::select('id', 'name')->orderBy('name', 'asc')->get();
+        return view('admin.advertisement.add', compact('adsCategories'));
     }
 
     /**
@@ -39,7 +44,41 @@ class AdvertisementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userId = auth()->user()->id;
+        $role = auth()->user()->role;
+        $addedby = json_encode(['type' => 'admin', 'id' => $userId]);
+
+
+        $validator = Validator::make($request->all(), [
+            'title' =>        'required',
+            'author'=>       'required',
+            'summery' =>      'required',
+            'description' =>  'required',
+            'blog_category' => 'required'
+        
+
+        ]);
+       
+       if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                 ->withInput();
+        }
+
+        $insert = Advertisement::Create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'summery' => $request->summery,
+            'description' => $request->description,
+            'blog_category' => $request->blog_category,
+            'addedBy'=> $addedby
+        ]);
+
+        if($insert){
+            $request->session()->flash('message.level', 'success');
+            $request->session()->flash('message.content', 'Advertisement detail added successfully !');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -61,7 +100,10 @@ class AdvertisementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $blogcategories = AdsCategory::select('id', 'name')->orderBy('name', 'asc')->get(); 
+        $getDetails = Advertisement::select('id','title','summery','description','blog_category','author')->orderBy('title', 'asc')->where('id', $id)->first();
+       
+        return view('admin.advertisement.edit', compact('getDetails','blogcategories'));
     }
 
     /**
@@ -73,7 +115,44 @@ class AdvertisementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $userId = auth()->user()->id;
+        $role = auth()->user()->role;
+        $addedby = json_encode(['type' =>'admin', 'id' => $userId]);
+        
+
+          $validator = Validator::make($request->all(), [
+            'title' =>        'required',
+            'author'=>       'required',
+            'summery' =>      'required',
+            'description' =>  'required',
+            'blog_category' => 'required'
+        
+
+        ]);
+       
+       if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                 ->withInput();
+        }
+
+        $updateArr = [
+            'title' => $request->title,
+            'author' => $request->author,
+            'summery' => $request->summery,
+            'description' => $request->description,
+            'blog_category' => $request->blog_category,
+            'addedBy' => $addedby,
+            
+        ];
+
+        $update = Advertisement::find($id)->update($updateArr);
+
+        if($update){
+            $request->session()->flash('message.level', 'success');
+            $request->session()->flash('message.content', 'Advertisement details updated successfully !');
+            return redirect()->route('advertise.edit', $id);
+        }
     }
 
     /**
@@ -84,10 +163,9 @@ class AdvertisementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ads = Advertisement::find($id);
+        $ads->delete();
+        return redirect()->route('advertise.index');
     }
 
-    public function category(){
-        
-    }
 }

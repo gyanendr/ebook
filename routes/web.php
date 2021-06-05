@@ -11,6 +11,8 @@ use App\Http\Controllers\Product\ProductsController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\BrandController;
 use App\Http\Controllers\Product\SubCategoryController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
 
 
 Route::get('/', function () {
@@ -23,7 +25,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(
+	Route::group(
 	[
 		'prefix' => 'user',  //link url parameter
 		'namespace' => 'User', //folder
@@ -33,7 +35,7 @@ Route::group(
 		Route::get('/dashboard', [UserController::class, 'index'])->name('index');
 	});
 
-Route::group(
+	Route::group(
 	[
 		'prefix' => 'admin',  //link url parameter
 		//'namespace' => 'Admin', //folder
@@ -64,5 +66,23 @@ Route::group(
 
 		Route::resource('offer', OffersController::class);
 		Route::resource('category', CategoryController::class);
+		Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
 			
 });	
+
+
+	Route::get('subscribe-process', [
+    'as' => 'subscribe-process',
+    'uses' => 'PaymentController@SubscribProcess'
+	]);
+
+
+	Route::get('subscribe-cancel', [
+	    'as' => 'subscribe-cancel',
+	    'uses' => 'PaymentController@SubscribeCancel'
+	]);
+
+	Route::get('subscribe-response', [
+	    'as' => 'subscribe-response',
+	    'uses' => 'PaymentController@SubscribeResponse'
+	]);
