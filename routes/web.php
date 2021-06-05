@@ -63,6 +63,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 		Route::resource('appuser', AppUserController::class);
 	
 		Route::resource('advertise', AdvertisementController::class);
+		Route::get('ads-category', [AdvertisementController::class, 'adsCategory'])->name('ads-category');
 
 		Route::resource('offer', OffersController::class);
 		Route::resource('category', CategoryController::class);

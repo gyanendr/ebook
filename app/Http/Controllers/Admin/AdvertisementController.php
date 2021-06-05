@@ -168,4 +168,9 @@ class AdvertisementController extends Controller
         return redirect()->route('advertise.index');
     }
 
+    public function adsCategory(){
+        $adsCategories = AdsCategory::paginate(10);
+        return view('admin.advertisement.adslisting', compact('adsCategories'));
+    } 
+
 }
