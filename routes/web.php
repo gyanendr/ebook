@@ -50,11 +50,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 		Route::get('/edit-user/{id}', [AdminController::class, 'editUser'])->name('edit-user');
 		Route::post('/edit-user', [AdminController::class, 'updateUserDetails'])->name('edit-user');
 		Route::get('/order-listing', [AdminController::class, 'orderListing'])->name('order-listing');
-		Route::post('/getsubcategory', [ProductsController::class, 'getSubCategory'])->name('getSubCategory');
-		Route::get('ads-category', [AdvertisementController::class, 'adsCategory'])->name('ads-category');
 		Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
 			
 });	
+		
+		Route::post('/getsubcategory', [ProductsController::class, 'getSubCategory'])->name('getSubCategory');
+		Route::get('ads-category', [AdvertisementController::class, 'adsCategory'])->name('ads-category');
+
 		Route::resource('brands', BrandController::class);
 		Route::get('brands-list', [BrandController::class, 'list']);
 

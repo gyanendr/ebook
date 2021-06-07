@@ -344,7 +344,7 @@ document.querySelector('#productImage').addEventListener("change", previewImages
     $('#subcategory').append('<option value="">Select Details </option>');
 
      $.ajax({
-      url: '{{url("/admin/getsubcategory") }}',
+      url: '{{url("getsubcategory") }}',
       type: 'POST',
       data: {"_token": "{{ csrf_token() }}", categoryId:categoryId },
       success:function(result){

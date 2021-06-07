@@ -29,7 +29,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <div class="card card-primary card-outline">
+            <div class="card card-warning card-outline">
               <div class="card-body">
                   <div class="col-lg-12">
                   
