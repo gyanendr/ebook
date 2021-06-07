@@ -283,14 +283,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="{{url('/admin/user-listing')}}" class="nav-link {{(url()->current() == url('/admin/user-listing')) ? 'active' : '' }}">
-               <i class="far fa-circle nav-icon"></i>
-              <p>
-                Users Listing
-              </p>
-            </a>
-              </li>
-              <li class="nav-item">
                 <a href="{{url('appuser-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>App User Listing</p>

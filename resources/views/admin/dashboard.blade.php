@@ -50,7 +50,7 @@
                       <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                       </div>
-                      <a href="{{url('/admin/book-listing')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      <a href="{{url('products-list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                   </div>
                   <!-- ./col -->
@@ -80,7 +80,7 @@
                       <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                       </div>
-                      <a href="{{url('/admin/category-listing')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      <a href="{{url('/category-list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                   </div>
                   </div>

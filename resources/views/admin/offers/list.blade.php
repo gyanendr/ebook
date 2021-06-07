@@ -68,7 +68,13 @@
                                  </td>
                                   <td>{{$row->till}}</td>
                                   <td>{{$row->code}}</td>
-                                  <td>{{$row->status}}</td>
+                                  <td>
+                                    @if($row->status == 1)
+                                     <a class="btn-xs btn alert-success">Active</a> 
+                                    @else
+                                      <a class="btn-xs btn alert-warning">Inactive</a>
+                                    @endif
+                                  </td>
                                   <td>
                                     <a href="{{route('offer.edit', $row->id)}}" class="btn btn-xs customBtn"><i class="fa fa-edit"></i></a>
   

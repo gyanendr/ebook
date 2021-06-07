@@ -35,7 +35,7 @@
 
 
                   <div class="text-right">
-                    <a href="{{route('subcategory.index')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Subcategory Listing</a>
+                    <a href="{{url('subcategory-list')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Subcategory Listing</a>
                   </div>
                   <br>
                 </div>

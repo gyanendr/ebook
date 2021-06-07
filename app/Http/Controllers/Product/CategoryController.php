@@ -116,7 +116,7 @@ class CategoryController extends Controller
         if($insert){
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'Category details added successfully !');
-            return redirect('admin/category');
+            return redirect('category-list');
         }
 
     }
@@ -218,7 +218,7 @@ class CategoryController extends Controller
         if($update){
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'Category details added successfully !');
-            return redirect('admin/category');
+            return redirect()->route('category.edit', $id);
         }
     }
 

@@ -34,7 +34,7 @@
                   @endif
 
                   <div class="text-right">
-                    <a href="{{url('admin/category-listing')}}" class="btn bnt-sm btn-success"> <i class="fa fa-list"></i> List Category</a>
+                    <a href="{{url('category-list')}}" class="btn bnt-sm btn-success"> <i class="fa fa-list"></i> List Category</a>
                   </div>
                   <br>
                 </div>

@@ -62,13 +62,13 @@
                   <br>
                 </div>
                    <div class="col-lg-12">
-                      <form method="POST" name="products-form" id="products-form" action="{{route('products.store')}}" enctype="multipart/form-data">
+                      <form method="POST" name="products-form" id="products-form" action="{{url('products/store')}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="row">
                           <div class="col-sm-12">
                             <div class="form-group">
                                 <label> Title </label>
-                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Enter Product Title" required>
+                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Enter Product Title" required>
                               @error('title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -154,7 +154,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label>Sale Price</label>
-                              <input type="text" placeholder="Sale Price" name="sale_price" class="form-control @error('sale_price') is-invalid @enderror" required>
+                              <input type="text" placeholder="Sale Price" name="sale_price" class="form-control @error('sale_price') is-invalid @enderror" value="{{ old('sale_price') }}" required>
                               @error('sale_price')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -167,7 +167,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label>Purchase Price</label>
-                              <input type="text" placeholder="Purchase Price" name="purchase_price" class="form-control @error('purchase_price') is-invalid @enderror" required>
+                              <input type="text" placeholder="Purchase Price" name="purchase_price" class="form-control @error('purchase_price') is-invalid @enderror" value="{{ old('purchase_price') }}" required>
                               @error('purchase_price')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -179,7 +179,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label class="control-lable">Shipping Cost</label>
-                              <input type="text" placeholder="Shipping Cost" name="shipping_cost" class="form-control @error('shipping_cost') is-invalid @enderror" required>
+                              <input type="text" placeholder="Shipping Cost" name="shipping_cost" class="form-control @error('shipping_cost') is-invalid @enderror" value="{{ old('shipping_cost') }}" required>
 
                               @error('shipping_cost')
                                 <span class="invalid-feedback" role="alert">
@@ -195,7 +195,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label> Tags </label>
-                              <input type="text" class="form-control @error('tags') is-invalid @enderror" value="" id="tags" name="tags[]" data-role="tagsinput">
+                              <input type="text" class="form-control @error('tags') is-invalid @enderror" value="" id="tags" name="tags[]" data-role="tagsinput" >
 
                               @error('tags')
                                 <span class="invalid-feedback" role="alert">
@@ -209,7 +209,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label class="control-lable">Current Stock</label>
-                              <input type="number" placeholder="Current Stock" min="1" name="current_stock" class="form-control @error('current_stock') is-invalid @enderror" required>
+                              <input type="number" placeholder="Current Stock" min="1" value="{{ old('current_stock') }}" name="current_stock" class="form-control @error('current_stock') is-invalid @enderror" required>
                               
                               @error('current_stock')
                                 <span class="invalid-feedback" role="alert">
@@ -223,7 +223,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label class="control-lable">Discount</label>
-                              <input type="number" placeholder="Discount" name="discount" class="form-control @error('discount') is-invalid @enderror" required>
+                              <input type="number" placeholder="Discount" name="discount" value="{{ old('discount') }}" class="form-control @error('discount') is-invalid @enderror" required>
                               
                               @error('discount')
                                 <span class="invalid-feedback" role="alert">
@@ -240,7 +240,7 @@
                           <div class="col-lg-12">
                             <div class="form-group">
                             <label>SEO title</label>
-                            <input type="text" class="form-control @error('seo_title') is-invalid @enderror" placeholder="SEO title" name="seo_title" required>
+                            <input type="text" class="form-control @error('seo_title') is-invalid @enderror" placeholder="SEO title" name="seo_title" value="{{ old('seo_title') }}">
                               @error('seo_title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -253,7 +253,7 @@
                           <div class="col-lg-12">
                             <div class="form-group">
                             <label>SEO Description</label>
-                            <textarea class="form-control @error('seo_descr') is-invalid @enderror" placeholder="SEO Description" name="seo_descr" required></textarea>
+                            <textarea class="form-control @error('seo_descr') is-invalid @enderror" placeholder="SEO Description" name="seo_descr"></textarea>
                             @error('seo_descr')
                               <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
@@ -270,7 +270,7 @@
                             <div class="form-group">
                               <label>Upload Image</label>
                               <br>
-                            <input type="file" class="@error('image') is-invalid @enderror" name="image[]" id="productImage" accept="image/*" multiple required>
+                            <input type="file" class="@error('image') is-invalid @enderror" name="image[]" id="productImage" accept="image/*" multiple>
 
                               @error('image')
                                 <span class="invalid-feedback" role="alert">

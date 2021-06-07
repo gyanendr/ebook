@@ -185,7 +185,7 @@ class AdvertisementController extends Controller
     {
         $ads = Advertisement::find($id);
         $ads->delete();
-        return redirect()->route('advertise.index');
+        return redirect('advertise-list');
     }
 
     public function adsCategory(){

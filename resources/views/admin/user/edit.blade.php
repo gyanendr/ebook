@@ -24,11 +24,9 @@
             <div class="card card-primary card-outline">
               <div class="card-body">
                 <div class="col-lg-12">
-                   @if(session()->has('message'))
-                        <div class="alert alert-success">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
+                 @if (Session::has('message'))
+                   <div class="alert alert-info">{{ Session::get('message') }}</div>
+                 @endif
 
                   <div class="text-right">
                     <a href="{{url('admin/user-listing')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> &nbsp;Users List</a>

@@ -59,7 +59,8 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        
         $latestData = Brand::latest('id', 'desc')->select('id')->first();
         $lastId = ($latestData->id + 1);    
         
@@ -80,7 +81,7 @@ class BrandController extends Controller
         if($insert){
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'Brand details added successfully !');
-            return redirect('admin/brands');
+            return redirect('brands-list');
         }
        
         
@@ -156,6 +157,6 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($id);
         $brand->delete();
-        return redirect()->route('brands.index');
+        return redirect()->route('brands-list');
     }
 }

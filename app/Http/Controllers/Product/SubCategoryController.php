@@ -98,7 +98,7 @@ class SubCategoryController extends Controller
         if($insert){
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'Subcategory details added successfully !');
-            return redirect('admin/subcategory');
+            return redirect('subcategory-list');
         }
     }
 

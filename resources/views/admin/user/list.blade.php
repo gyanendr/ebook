@@ -23,11 +23,9 @@
           <div class="col-lg-12">
             <div class="card card-warning card-outline">
               <div class="card-body">
-                @if(session()->has('message'))
-                    <div class="alert alert-success">
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
+                 @if (Session::has('message'))
+                   <div class="alert alert-info">{{ Session::get('message') }}</div>
+                 @endif
                  <div class="text-right">
                     <a href="{{url('admin/add-user')}}" class="btn bnt-sm customBtn"> <i class="fa fa-plus"></i> Add New User</a>
                   </div>

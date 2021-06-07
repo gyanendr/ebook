@@ -62,8 +62,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 		Route::resource('products', ProductsController::class);
 		Route::get('products-list', [ProductsController::class, 'list']);
+		Route::post('products/store', [ProductsController::class, 'store']);
 	
 		Route::resource('subcategory', SubCategoryController::class);
+		Route::post('subcategory/store', [SubCategoryController::class, 'store']);
 		Route::get('subcategory-list', [SubCategoryController::class, 'list']);
 	
 		Route::resource('appuser', AppUserController::class);
@@ -76,6 +78,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 		Route::get('offer-list', [OffersController::class, 'list']);
 		
 		Route::resource('category', CategoryController::class);
+		Route::post('category/store', [CategoryController::class, 'store']);
+
 		Route::get('category-list', [CategoryController::class, 'list']);
 
 	Route::get('subscribe-process', [

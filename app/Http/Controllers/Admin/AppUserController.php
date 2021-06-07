@@ -109,6 +109,6 @@ class AppUserController extends Controller
     {
         $appuser = Customer::findOrFail($id);
         $appuser->delete();
-        return redirect()->route('appuser.index');
+        return redirect('appuser-list');
     }
 }

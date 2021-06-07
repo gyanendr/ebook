@@ -39,7 +39,7 @@
                   <br>
                 </div>
                    <div class="col-lg-12">
-                      <form method="post" name="subcategory-form" id="subcategory-form" action="{{route('subcategory.store')}}" enctype="multipart/form-data">
+                      <form method="post" name="subcategory-form" id="subcategory-form" action="{{url('subcategory/store')}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="row">
                           <div class="col-sm-6">

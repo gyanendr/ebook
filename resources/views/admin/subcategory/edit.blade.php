@@ -87,7 +87,7 @@
                             <img id="image" / width="100px" src="{{url('subcategory/'.$getDetails->banner)}}">
                             <div class="form-group">
                                 <label> SubCategory Image </label> <br>
-                               <input type="file" name="subcatImage" id="subcatImage" accept="image/*" required>
+                               <input type="file" name="subcatImage" id="subcatImage" accept="image/*">
                               <input type="hidden" name="hiddenImage" value="{{$getDetails->banner}}"> 
                             </div>    
                           </div>

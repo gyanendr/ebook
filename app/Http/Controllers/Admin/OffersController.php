@@ -82,7 +82,7 @@ class OffersController extends Controller
         if($insert){
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'Offers details added successfully !');
-            return redirect('admin/offer');
+            return redirect('offer-list');
         }
 
     }
@@ -155,7 +155,7 @@ class OffersController extends Controller
     public function destroy($id)
     {
         $offer = Offers::findOrFail($id);
-        $brand->delete();
-        return redirect()->route('offer.index');
+        $offer->delete();
+        return redirect('offer-list');
     }
 }

@@ -46,8 +46,9 @@ class ProductsController extends Controller
     {   
         $products = Products::select('id', 'title', 'category', 'sub_category', 'brand', 'current_stock', 'sale_price', 'purchase_price')->orderBy('id', 'desc')->paginate(10);
         return view('admin.products.list', compact('products'));
-    }
+    } 
 
+   
     /**
      * Show the form for creating a new resource.
      *
@@ -68,7 +69,7 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {  
         $latestData = Products::latest('id', 'desc')->select('id')->first();
         $lastId = ($latestData->id + 1);  
         
@@ -143,7 +144,7 @@ class ProductsController extends Controller
         if($insert){
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'Product details added successfully !');
-            return redirect('admin/products');
+            return redirect('products-list');
         }
     }
 
@@ -269,12 +270,14 @@ class ProductsController extends Controller
         if(!empty($deleteImage)){
             foreach ($deleteImage as $image) {
             $path = public_path('products/'.$image);
-            unlink($path);   
+              if(file_exists($path)){
+                unlink($path);   
+              }
             }
         }
 
         $deleteImageData = ProductImage::where('product_id', $id)->delete();
-        return redirect()->route('products.index');
+        return redirect('products-list');
     }
 
     public function getSubCategory(Request $request){

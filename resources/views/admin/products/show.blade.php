@@ -35,7 +35,7 @@
 
 
                   <div class="text-right">
-                    <a href="{{route('products.index')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Product Listing</a>
+                    <a href="{{url('products-list')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Product Listing</a>
                   </div>
                   <br>
                 </div>
