@@ -58,18 +58,18 @@
                                   </tr>
                                   <tr>
                                     <th>Category </th>
-                                    <td>{{$getDetails->hasCategory->category_name }}</td>
+                                    <td>{{ !empty($getDetails->hasCategory->category_name) ?  $getDetails->hasCategory->category_name : '' }}</td>
                                   </tr>
                                   <tr>
                                   
                                   <tr>
                                     <th>Subcategory </th>
-                                    <td>{{$getDetails->hasSubCategory->sub_category_name }}</td>
+                                    <td>{{ !empty($getDetails->hasSubCategory->sub_category_name) ?  $getDetails->hasSubCategory->sub_category_name : ''  }}</td>
                                   </tr>
 
                                    <tr>
                                     <th>Brand </th>
-                                    <td>{{$getDetails->hasBrand->name }}</td>
+                                    <td>{{ !empty($getDetails->hasBrand->name) ?  $getDetails->hasBrand->name : ''  }}</td>
                                   </tr>                        
 
                                    <tr>

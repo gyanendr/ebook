@@ -115,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('appuser.index')}}" class="nav-link">
+                <a href="{{url('appuser-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>App User Listing</p>
                 </a>
@@ -134,20 +134,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="{{route('products.index')}}" class="nav-link">
+                <a href="{{url('products-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Product Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('brands.index')}}" class="nav-link">
+                <a href="{{url('brands-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Brand Listing</p>
                 </a>
               </li> 
 
               <li class="nav-item">
-                <a href="{{route('offer.index')}}" class="nav-link">
+                <a href="{{url('offer-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Offers Listing</p>
                 </a>
@@ -165,13 +165,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
+                <a href="{{url('category-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('subcategory.index')}}" class="nav-link">
+                <a href="{{url('subcategory-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SubCategory Listing</p>
                 </a>
@@ -214,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="{{route('advertise.index')}}" class="nav-link">
+                <a href="{{url('advertise-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Advertisement Listing</p>
                 </a>
@@ -273,11 +273,172 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
          
-          <li class="nav-item">
-            <a href="#" class="nav-link {{(url()->current() == url('/user/order-new-book')) ? 'active' : '' }} ">
-              <i class="nav-icon fas fa-book"></i>
-              <p> Order List </p>
+                    <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Users Listing
+                <i class="fas fa-angle-left right"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{url('/admin/user-listing')}}" class="nav-link {{(url()->current() == url('/admin/user-listing')) ? 'active' : '' }}">
+               <i class="far fa-circle nav-icon"></i>
+              <p>
+                Users Listing
+              </p>
+            </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('appuser-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>App User Listing</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Product
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{url('products-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product Listing</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('brands-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Brand Listing</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="{{url('offer-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Offers Listing</p>
+                </a>
+              </li>
+            </ul>
+          </li>  
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Category
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{url('category-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category Listing</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('subcategory-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SubCategory Listing</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Order
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Order Listing</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cancel Listing</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Advertisement
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{url('advertise-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advertisement Listing</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/ads-category')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advertisement Category</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Report Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin/Sub-Admin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Service Report</p>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Income Report</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pending Order list</p>
+                </a>
+              </li>
+            </ul>
           </li>
         
          @endif

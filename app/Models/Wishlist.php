@@ -6,19 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Role extends Authenticatable
+class Wishlist extends Authenticatable
 {
     use  Notifiable;
-    protected $table = 'role';
+    protected $table = 'wishlist';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
-        'permission',
-        'description',
+        'user_id',
+        'product_id',
     ];
 
 

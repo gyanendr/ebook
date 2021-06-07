@@ -57,7 +57,8 @@
                             @enderror
                         </div>
                     </div>
-<div class="col-md-4">
+                    
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Password:</label>
                             <input type="text" name="password" class="form-control form-control-solid" placeholder="Enter password" value="{{ !empty($result->company_pass) ? $result->company_pass : '' }}" required="">
@@ -79,7 +80,7 @@
                             @enderror
                         </div>
                     </div>
-<div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Location:</label>
                             <input type="text" name="location" class="form-control form-control-solid" placeholder="Enter location" value="{{ !empty($result->location) ? $result->location : '' }}" required="">
@@ -87,8 +88,8 @@
                                 <div class="error">{{ $message }}</div>
                             @enderror
                         </div> 
-</div>
-<div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Company logo:</label>
                             <input type="file" class="form-control form-control-solid" 

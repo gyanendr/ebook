@@ -54,7 +54,7 @@
                                 </tr>
                                   <tr>
                                     <th>Description </th>
-                                    <td>{{$getDetails->getCategory->category_name}}</td>
+                                    <td>{{ !empty($getDetails->getCategory->category_name) ? $getDetails->getCategory->category_name : '' }}</td>
                                   </tr>  
                                   
                                   <tr>

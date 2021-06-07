@@ -45,7 +45,7 @@
                             @foreach($subcategories as $row)
                                <tr>
                                    <td>{{$row->id}}</td>
-                                   <td>{{$row->getCategory->category_name}}</td>
+                                   <td>{{!empty($row->getCategory->category_name) ? $row->getCategory->category_name : ''}}</td>
                                    <td>{{$row->sub_category_name}}</td>
                                    <td> 
                                     <img src="{{url('subcategory/'.$row->banner)}}" width="100px">  

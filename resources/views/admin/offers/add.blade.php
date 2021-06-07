@@ -34,7 +34,7 @@
                   @endif
 
                   <div class="text-right">
-                    <a href="{{route('offer.index')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Offers List</a>
+                    <a href="{{url('offer-list')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Offers List</a>
                   </div>
                   <br>
                 </div>

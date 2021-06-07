@@ -60,8 +60,9 @@
                                     <img src="{{url('category/'.$row->banner)}}" width="100px">
                                   </td>
                                   <td>
-                                    <a href="{{route('category.edit', $row->id)}}" class="btn btn-xs btn-info"><i class="fa fa-edit"></i> </a>
-                                    <a class="btn btn-xs customBtn" href="{{url('admin/delete-category/'.$row->id)}}"> <i class="fa fa-eye"></i> </a>
+                                    <a href="{{route('category.edit', $row->id)}}" class="btn btn-xs customBtn"><i class="fa fa-edit"></i> 
+                                    </a>
+                                    
                                   </td>
                                 </tr>
                             @endforeach

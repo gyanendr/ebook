@@ -36,7 +36,7 @@
                   @endif
 
                   <div class="text-right">
-                    <a href="{{route('advertise.index')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Advertisement Listing</a>
+                    <a href="{{url('advertise-list')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Advertisement Listing</a>
                   </div>
                   <br>
                 </div>

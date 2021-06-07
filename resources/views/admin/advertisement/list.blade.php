@@ -56,7 +56,7 @@
                                <tr>
                                   <td>{{$row->id}}</td>
                                   <td>{{$row->title}}</td>
-                                  <td>{{$row->getAdsCategory->name}}</td>
+                                  <td>{{!empty($row->getAdsCategory->name) ? $row->getAdsCategory->name : '' }}</td>
                                   <td>{!!$row->description!!}</td>
                                   
                                   <td>

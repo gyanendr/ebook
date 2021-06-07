@@ -7,11 +7,23 @@ use Illuminate\Http\Request;
 use App\Models\SubCategory;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\Role;
+use App\Models\Permission;
 
 class SubCategoryController extends Controller
 {
     public function __construct(){
         $this->middleware(['auth']); 
+        
+        $this->middleware(function ($request, $next){
+            if(auth()->user()->role != 1){
+                if ($this->checkPermisstion() == false){
+                  return redirect('user/dashboard');
+                  exit();
+                }else{ return $next($request); }
+            }else{ return $next($request); }
+        });
+
     }
 
     /**
@@ -19,7 +31,17 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    
+    private function checkPermisstion(){
+        $userRole = auth()->user()->user_role;
+        $getRoles = Role::find($userRole);
+        $allpermisions =  json_decode($getRoles->permission);
+        $sectionPer = Permission::where('codename', 'LIKE', 'sub_category')->select('id')->first();
+        $id = $sectionPer->id;
+        if(!in_array($id, $allpermisions)){  return false; }else{ return true; }
+    }
+
+    public function list()
     {
         $subcategories = SubCategory::orderBy('id', 'desc')->paginate(10);
         return view('admin.subcategory.list', compact('subcategories'));

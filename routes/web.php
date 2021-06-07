@@ -44,33 +44,37 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 		Route::match(['get', 'post'], '/', 'App\Http\Controllers\Admin\AdminController@index');
 		
 		Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
-		
 		Route::get('/user-listing', [AdminController::class, 'usersListing'])->name('user-listing');
 		Route::get('/add-user', [AdminController::class, 'addUserForm'])->name('add-user');
 		Route::post('/add-user', [AdminController::class, 'saveUserDetails'])->name('add-user');
 		Route::get('/edit-user/{id}', [AdminController::class, 'editUser'])->name('edit-user');
 		Route::post('/edit-user', [AdminController::class, 'updateUserDetails'])->name('edit-user');
 		Route::get('/order-listing', [AdminController::class, 'orderListing'])->name('order-listing');
-		
-		Route::resource('brands', BrandController::class);
-		
-		Route::resource('products', ProductsController::class);
-		
 		Route::post('/getsubcategory', [ProductsController::class, 'getSubCategory'])->name('getSubCategory');
-		
-		Route::resource('subcategory', SubCategoryController::class);
-	
-		Route::resource('appuser', AppUserController::class);
-	
-		Route::resource('advertise', AdvertisementController::class);
 		Route::get('ads-category', [AdvertisementController::class, 'adsCategory'])->name('ads-category');
-
-		Route::resource('offer', OffersController::class);
-		Route::resource('category', CategoryController::class);
 		Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
 			
 });	
+		Route::resource('brands', BrandController::class);
+		Route::get('brands-list', [BrandController::class, 'list']);
 
+		Route::resource('products', ProductsController::class);
+		Route::get('products-list', [ProductsController::class, 'list']);
+	
+		Route::resource('subcategory', SubCategoryController::class);
+		Route::get('subcategory-list', [SubCategoryController::class, 'list']);
+	
+		Route::resource('appuser', AppUserController::class);
+		Route::get('appuser-list', [AppUserController::class, 'list']);
+	
+		Route::resource('advertise', AdvertisementController::class);
+		Route::get('advertise-list', [AdvertisementController::class, 'list']);
+
+		Route::resource('offer', OffersController::class);
+		Route::get('offer-list', [OffersController::class, 'list']);
+		
+		Route::resource('category', CategoryController::class);
+		Route::get('category-list', [CategoryController::class, 'list']);
 
 	Route::get('subscribe-process', [
     'as' => 'subscribe-process',

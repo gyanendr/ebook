@@ -22,5 +22,9 @@ class SubCategory extends Authenticatable
     	return $this->hasOne(Category::class, 'id', 'category');
     } 
 
+    public function subcategory(){
+        return $this->belongsTo(Category::class);
+    }
+
 
 }

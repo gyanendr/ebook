@@ -76,7 +76,7 @@ class AdminController extends Controller
     }
 
     public function editUser($id){
-        $roles = Role::all();
+        $roles = Role::where('id', '!=', 1)->get();
         $getDetails = User::find($id);
         return view('admin.user.edit', compact('getDetails', 'roles'));
     }

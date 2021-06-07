@@ -30,9 +30,14 @@ Route::middleware('auth:customerapi')->group( function () {
    Route::post('/update-profile',[UserController::class,'updateProfile']);
    Route::post('/update-address',[UserController::class,'updateAddress']);
    Route::get('/edit-user-details',[UserController::class,'edituserDetails']);
+
    Route::get('/cart-items',[ProductController::class,'cartListing']);
    Route::post('/add-to-cart',[ProductController::class,'addToCart']);
    Route::get('/remove-cart-item/{cartId}',[ProductController::class,'removeCartItem']);
+
+   Route::get('/wish-list',[ProductController::class,'wishListing']);
+   Route::post('/add-to-wish-list',[ProductController::class,'addToWishlist']);
+   Route::get('/remove-wishlist/{id}',[ProductController::class,'removeWishItem']);
 
 });
 

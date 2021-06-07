@@ -9,6 +9,7 @@ use App\Models\Products;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\CartItem;
+use App\Models\Wishlist;
 use App\Models\SubCategory;
 use App\Models\ProductImage;
 use DB;
@@ -67,7 +68,15 @@ class ProductController extends Controller
     }
 
     public function categoryListing(){
-        $categories = Category::select('id', 'category_name', 'banner as thumbnail')->get();
+        $categories = Category::select('id', 'category_name', 'data_subdets','banner as thumbnail')->get();
+
+/*        $categoriesArr = [];
+        foreach ($categories as $row) {
+            $categoriesArr[] = $row;
+            $categoriesArr[] = $row->getSubCategory; 
+           
+        }*/
+
         $success['categories'] =  $categories;
         return response()->json(['success' => $success], $this->successStatus);
     }
@@ -111,5 +120,41 @@ class ProductController extends Controller
         return response()->json(['success' => $getCartItems], $this->successStatus);
        
     }
+
+    public function wishListing(){
+        $userId = Auth::user()->id;
+        $getCartItems['wishListItems'] = Wishlist::select('product.title','product.sale_price', DB::raw('group_concat(product_Image.image) as thumbnail'))->
+        leftJoin('product_Image', 'wishlist.product_id', '=', 'product_Image.product_id')->
+        leftJoin('product', 'wishlist.product_id', '=', 'product.id')->
+        where('wishlist.user_id', $userId)->
+        groupBy('wishlist.product_id')->get();
+        return response()->json(['success' => $getCartItems], $this->successStatus);
+    }
+
+    public function addToWishlist(Request $request){
+        $userId = Auth::user()->id;
+       
+        $insert = Wishlist::Create([
+            'user_id' => $userId,
+            'product_id' => $request->product_id,
+        ]);
+
+        if($insert){
+          return response()->json(['success'=>' Item added in wishlist successfully !.'],$this->successStatus);
+        }else{
+          return response()->json(['error'=>'Unauthorised'], 401); 
+         } 
+    }
+
+    public function removeWishItem($id){
+        
+        $delete = Wishlist::find($id)->delete();
+        
+        if($delete){
+          return response()->json(['success'=>' Item removed successfully !.'],$this->successStatus);
+        }else{
+          return response()->json(['error'=>'Unauthorised'], 401); 
+         } 
+    }    
 
 }

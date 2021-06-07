@@ -60,9 +60,12 @@
                                <tr>
                                   <td>{{$row->id}}</td>
                                   <td>{{$row->title}}</td>
-                                  <td>{{ !empty($row->category) ? $row->hasCategory->category_name : '' }}</td>
-                                  <td>{{ !empty($row->sub_category) ? $row->hasSubCategory->sub_category_name : '' }}</td>
-                                  <td>{{ !empty($row->brand) ? $row->hasBrand->name : '' }}</td>
+                                  <td>{{ !empty($row->hasCategory->category_name) ? $row->hasCategory->category_name : '' }}</td>
+                                  
+                                  <td>{{ !empty($row->hasSubCategory->sub_category_name) ? $row->hasSubCategory->sub_category_name : '' }}</td>
+                                  
+                                  <td>{{ !empty($row->hasBrand->name) ? $row->hasBrand->name : '' }}</td>
+                                  
                                   <td>{{$row->current_stock}}</td>
                                   <td>{{$row->sale_price}}</td>
                                   <td>{{$row->purchase_price}}</td>

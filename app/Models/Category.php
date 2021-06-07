@@ -15,6 +15,8 @@ class Category extends Authenticatable
      *
      * @var array
      */
+
+    protected $primaryKey = 'id';
     protected $fillable = [ 'category_name', 'description', 'digital', 'banner', 'data_brands', 'data_vendors', 'data_subdets'
     ];
 

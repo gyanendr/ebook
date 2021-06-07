@@ -44,6 +44,8 @@ class Customer extends Authenticatable
         'langlat',
         'state',
         'country',
+        'wishlist',
+        'profile_pic'
         
     ];
 

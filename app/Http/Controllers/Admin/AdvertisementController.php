@@ -7,11 +7,21 @@ use Illuminate\Http\Request;
 use App\Models\Advertisement;
 use App\Models\AdsCategory;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Role;
+use App\Models\Permission;
 
 class AdvertisementController extends Controller
 {   
     public function __construct(){
         $this->middleware(['auth']); 
+        $this->middleware(function ($request, $next){
+            if(auth()->user()->role != 1){
+                if ($this->checkPermisstion() == false){
+                  return redirect('user/dashboard');
+                  exit();
+                }else{ return $next($request); }
+            }else{ return $next($request); }
+        });
     }
     
     /**
@@ -19,7 +29,17 @@ class AdvertisementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    private function checkPermisstion(){
+        $userRole = auth()->user()->user_role;
+        $getRoles = Role::find($userRole);
+        $allpermisions =  json_decode($getRoles->permission);
+        $sectionPer = Permission::where('name', 'LIKE', 'blog')->select('id')->first();
+        $id = $sectionPer->id;
+        if(!in_array($id, $allpermisions)){  return false; }else{ return true; }
+    }
+    
+    public function list()
     {
         $advertisements = Advertisement::paginate(10);
         return view('admin.advertisement.list', compact('advertisements'));

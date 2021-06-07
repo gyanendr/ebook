@@ -68,7 +68,7 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label> Password </label>
-                             <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter Password" value="{{$getDetails->user_pass}}" required>
+                             <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter Password" value="{{$getDetails->user_pass}}">
                              @error('password')
                                   <span class="invalid-feedback" role="alert">
                                       <strong>{{ $message }}</strong>

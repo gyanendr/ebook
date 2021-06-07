@@ -187,7 +187,21 @@ class UserController extends Controller
            if($validator->fails()){
               return response()->json(['error'=>$validator->errors()], 401);     
             }
-                
+
+            $userImage = '';
+        
+            if ($files = $request->file('user_image')) {
+              $userImage = $files->getClientOriginalExtension();
+              $userImage = 'user_'.$userId.'.'.$userImage; 
+              $path = public_path('userProfile/'.$userImage); 
+              
+              if(file_exists($path)){
+                 unlink($path);
+              } 
+
+               $files->move(public_path().'/userProfile/', $userImage);
+            }
+
            
                 $user = Customer::find($userId);
                 $user->username  = $request->username;
@@ -199,8 +213,7 @@ class UserController extends Controller
                 $user->city      = $request->city;
                 $user->zip       = $request->zip;
                 $user->langlat   = $request->langlat;
-                
-
+                $user->profile_pic = $userImage;
                 
                 $user->skype          =  $request->slype;
                 $user->facebook       =  $request->facebook;
@@ -238,8 +251,7 @@ class UserController extends Controller
          }else{
           return response()->json(['error'=>'Unauthorised'], 401); 
          } 
-      }       
-     
+      }   
 
 }
 
