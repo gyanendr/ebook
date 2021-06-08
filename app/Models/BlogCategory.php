@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class AdsCategory extends Model
+class BlogCategory extends Model
 {
     use HasFactory, LogsActivity;
 
@@ -18,5 +18,5 @@ class AdsCategory extends Model
 
     protected static $recordEvents = ['created', 'updated', 'deleted'];
 
-    protected static $logName = 'AdsCategory';
+    protected static $logName = 'BlogCategory';
 }

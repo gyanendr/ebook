@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Advertisement;
-use App\Models\AdsCategory;
+use App\Models\Blog;
+use App\Models\BlogCategory;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Role;
 use App\Models\Permission;
 
-class AdvertisementController extends Controller
+class BlogController extends Controller
 {   
     public function __construct(){
         $this->middleware(['auth']); 
@@ -41,8 +41,8 @@ class AdvertisementController extends Controller
     
     public function list()
     {
-        $advertisements = Advertisement::paginate(10);
-        return view('admin.advertisement.list', compact('advertisements'));
+        $blogs = Blog::paginate(10);
+        return view('admin.blog.list', compact('blogs'));
     }
 
     /**
@@ -52,8 +52,8 @@ class AdvertisementController extends Controller
      */
     public function create()
     {
-        $adsCategories = AdsCategory::select('id', 'name')->orderBy('name', 'asc')->get();
-        return view('admin.advertisement.add', compact('adsCategories'));
+        $adsCategories = BlogCategory::select('id', 'name')->orderBy('name', 'asc')->get();
+        return view('admin.blog.add', compact('adsCategories'));
     }
 
     /**
@@ -85,7 +85,7 @@ class AdvertisementController extends Controller
                  ->withInput();
         }
 
-        $insert = Advertisement::Create([
+        $insert = Blog::Create([
             'title' => $request->title,
             'author' => $request->author,
             'summery' => $request->summery,
@@ -96,7 +96,7 @@ class AdvertisementController extends Controller
 
         if($insert){
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'Advertisement detail added successfully !');
+            $request->session()->flash('message.content', 'Blog detail added successfully !');
             return redirect()->back();
         }
     }
@@ -120,10 +120,10 @@ class AdvertisementController extends Controller
      */
     public function edit($id)
     {
-        $blogcategories = AdsCategory::select('id', 'name')->orderBy('name', 'asc')->get(); 
-        $getDetails = Advertisement::select('id','title','summery','description','blog_category','author')->orderBy('title', 'asc')->where('id', $id)->first();
+        $blogcategories = BlogCategory::select('id', 'name')->orderBy('name', 'asc')->get(); 
+        $getDetails = Blog::select('id','title','summery','description','blog_category','author')->orderBy('title', 'asc')->where('id', $id)->first();
        
-        return view('admin.advertisement.edit', compact('getDetails','blogcategories'));
+        return view('admin.blog.edit', compact('getDetails','blogcategories'));
     }
 
     /**
@@ -166,12 +166,12 @@ class AdvertisementController extends Controller
             
         ];
 
-        $update = Advertisement::find($id)->update($updateArr);
+        $update = Blog::find($id)->update($updateArr);
 
         if($update){
             $request->session()->flash('message.level', 'success');
-            $request->session()->flash('message.content', 'Advertisement details updated successfully !');
-            return redirect()->route('advertise.edit', $id);
+            $request->session()->flash('message.content', 'Blog details updated successfully !');
+            return redirect()->route('blog.edit', $id);
         }
     }
 
@@ -183,14 +183,14 @@ class AdvertisementController extends Controller
      */
     public function destroy($id)
     {
-        $ads = Advertisement::find($id);
+        $ads = Blog::find($id);
         $ads->delete();
-        return redirect('advertise-list');
+        return redirect('blog-list')->with('message', 'Blog Deleted successfully!');;
     }
 
-    public function adsCategory(){
-        $adsCategories = AdsCategory::paginate(10);
-        return view('admin.advertisement.adslisting', compact('adsCategories'));
+    public function blogCategory(){
+        $adsCategories = BlogCategory::paginate(10);
+        return view('admin.blog.adslisting', compact('adsCategories'));
     } 
 
 }

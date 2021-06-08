@@ -40,102 +40,82 @@
                   </div>
                   <br>
                 </div>
-                   <div class="col-lg-12">
-                      <form method="POST" name="blog-form" id="blog-form" action="{{route('advertise.store')}}" enctype="multipart/form-data">
+                <div class="col-lg-12">
+                    <form method="POST" name="advertisement-form" id="advertisement-form" action="{{route('advertise.store')}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                                <label> Title </label>
-                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Enter blog Title" required>
-                              @error('title')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror
-                            </div>    
-                          </div>
-
-                            <div class="col-sm-6">
-                            <div class="form-group">
-                                <label> Author </label>
-                                <input type="text" name="author" class="form-control @error('author') is-invalid @enderror" placeholder="Enter Author" required>
-                              @error('author')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror
-                            </div>    
-                          </div>
-
+                      <div class="row">
                          
-                        </div>
-
-
-                  <div class="row">                            
-                     <div class="col-sm-12">
-                        <div class="form-group">
-                           <label> Summery </label>
-                           <textarea class="form-control summernote @error('summery') is-invalid @enderror" name="summery" id="summernote1" placeholder="Enter Summery" required></textarea>
-
-                            @error('summery')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                           @enderror
-
-                         </div>    
-                     </div>
-
-                     <div class="col-sm-12">
-                         <div class="form-group">
-                           <label>  Description  </label>
-                           <textarea class="form-control summernote @error('description') is-invalid @enderror" name="description" id="summernote2" placeholder="Enter Description" required></textarea>
-
-                           @error('description')
+                         <div class="col-sm-6">
+                           <div class="form-group">
+                             <label> Product </label> <br>
+                              <select class="form-control @error('product') is-invalid @enderror" name="product" id="product" required>
+                                <option value="">Please select</option>
+                                   @foreach($products as $product)
+                                     <option value="{{$product->id}}">{{$product->title}}</option>
+                                   @endforeach
+                               </select> 
+                              @error('product')
                               <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
-                              </span>
-                           @enderror
-
-                       </div>    
-                   </div>                       
-                </div> 
-
-                     
-               <div class="row">                                                  
-                  <div class="col-sm-6">
-                      <div class="form-group">
-                        <label> Advertisement Category </label> <br>
-                        <select class="form-control @error('blog_category') is-invalid @enderror" name="blog_category" id="blog_category" required>
-                          <option value="">Please select</option>
-                           @foreach($adsCategories as $blogcategory)
-                            <option value="{{$blogcategory->id}}">{{$blogcategory->name}}</option>
-                                @endforeach
-                        </select> 
-                        @error('blog_category')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                              <strong>{{ $message }}</strong>
                                 </span>
-                         @enderror
+                              @enderror
+                            </div> 
+                        </div>        
+
+                        <div class="col-sm-6">
+                           <div class="form-group">
+                             <label> Price </label>
+                               <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" placeholder="Enter price" required>
+                                 @error('price')
+                                  <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                  </span>
+                                 @enderror
+                            </div>    
+                          </div>                        
+                   </div>           
+
+                <div class="row">  
+
+                     <div class="col-sm-6">                              
+                        <div class="form-group">
+                             <label> Advertisement Image </label> <br>
+                               <input type="file" name="advertiseImage" id="advertisImage" accept="image/*" required>
+                               
+                            </div> 
+                            <img id="image" / width="100px">  
+                      </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                           <label> Status </label> <br>
+                            <div class="icheck-primary d-inline">
+                                <input type="radio" id="radioPrimary1" name="status" value="1" checked="checked">
+                                <label for="radioPrimary1">Active</label>
+                            </div>  
+
+                            <div class="icheck-primary d-inline">
+                                <input type="radio" id="radioPrimary2" name="status" value="0" >
+                                <label for="radioPrimary2">InActive
+                                </label>
+                              </div>
                         </div>    
+                    </div>
+                 </div>
+                               
+                                       
 
-                   </div>                        
-               </div>                      
-
-               <div class="row">
+                <div class="row">
                      <div class="col-sm-4">
                      </div>
                      <div class="col-sm-4">
-                     <input type="submit" name="submit" value="submit" class="btn btn-md customBtn btn-block">
+                        <input type="submit" name="submit" value="submit" class="btn btn-md customBtn btn-block">
+                      </div>
 
-                     </div>
-
-               </div>
-                         
-                      </form>
-                   </div>
+                </div>                         
+               </form>
               </div>
+            </div>
             </div><!-- /.card -->
           </div>
 
@@ -143,5 +123,12 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
+
+ <script type="text/javascript">
+  document.getElementById('product_image').onchange = function () {
+  var src = URL.createObjectURL(this.files[0])
+  document.getElementById('image').src = src
+  }
+</script>
 
 @endsection           

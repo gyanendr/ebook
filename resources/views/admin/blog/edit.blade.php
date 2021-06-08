@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Edit Advertisement</h1>
+            <h1 class="m-0">Edit Blog</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Edit Advertisement</li>
+              <li class="breadcrumb-item active">Edit Blog</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -36,12 +36,12 @@
                   @endif
 
                   <div class="text-right">
-                    <a href="{{url('advertise-list')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Advertisement Listing</a>
+                    <a href="{{url('blog-list')}}" class="btn bnt-sm customBtn"> <i class="fa fa-list"></i> Blog Listing</a>
                   </div>
                   <br>
                 </div>
                    <div class="col-lg-12">
-                      <form method="POST" name="blog-form" id="blog-form" action="{{route('advertise.update',$getDetails->id)}}" enctype="multipart/form-data">
+                      <form method="POST" name="blog-form" id="blog-form" action="{{route('blog.update',$getDetails->id)}}" enctype="multipart/form-data">
                         @method('PATCH') 
                         {{ csrf_field() }}
                         <div class="row">

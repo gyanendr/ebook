@@ -26,6 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{url('backend')}}/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="{{url('backend')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <script src="{{url('backend')}}/plugins/jquery/jquery.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -160,6 +161,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <i class="far fa-circle nav-icon"></i>
                   <p>Offers Listing</p>
                 </a>
+              </li>  
+
+              <li class="nav-item">
+                <a href="{{url('advertise-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advertisement Listing</p>
+                </a>
               </li>
             </ul>
           </li>  
@@ -217,21 +225,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
-                Advertisement
+                Blog
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="{{url('advertise-list')}}" class="nav-link">
+                <a href="{{url('blog-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Advertisement Listing</p>
+                  <p>Blog Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('ads-category')}}" class="nav-link">
+                <a href="{{url('blog-category')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Advertisement Category</p>
+                  <p>Blog Category</p>
                 </a>
               </li>
             </ul>
@@ -329,6 +337,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Offers Listing</p>
                 </a>
               </li>
+
+               <li class="nav-item">
+                <a href="{{url('advertise-list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advertisement Listing</p>
+                </a>
+              </li>
+              
             </ul>
           </li>  
 
@@ -385,21 +401,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
-                Advertisement
+                Blog
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="{{url('advertise-list')}}" class="nav-link">
+                <a href="{{url('blog-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Advertisement Listing</p>
+                  <p>Blog Listing</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('ads-category')}}" class="nav-link">
+                <a href="{{url('blog-category')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Advertisement Category</p>
+                  <p>Blog Category</p>
                 </a>
               </li>
             </ul>
@@ -489,7 +505,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="{{url('backend')}}/plugins/jquery/jquery.min.js"></script>
+
 <!-- Bootstrap 4 -->
 <script src="{{url('backend')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->

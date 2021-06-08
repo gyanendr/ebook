@@ -4,9 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AppUserController;
-use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\OffersController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Product\AdvertisementController;
+use App\Http\Controllers\Product\BlogController;
 use App\Http\Controllers\Product\ProductsController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\BrandController;
@@ -56,7 +57,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 });	
 		
 		Route::post('/getsubcategory', [ProductsController::class, 'getSubCategory'])->name('getSubCategory');
-		Route::get('ads-category', [AdvertisementController::class, 'adsCategory'])->name('ads-category');
+		Route::get('blog-category', [BlogController::class, 'blogCategory'])->name('blog-category');
 
 		Route::resource('brands', BrandController::class);
 		Route::get('brands-list', [BrandController::class, 'list']);
@@ -74,6 +75,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 	
 		Route::resource('advertise', AdvertisementController::class);
 		Route::get('advertise-list', [AdvertisementController::class, 'list']);
+
+		Route::resource('blog', BlogController::class);
+		Route::get('blog-list', [BlogController::class, 'list']);
 
 		Route::resource('offer', OffersController::class);
 		Route::get('offer-list', [OffersController::class, 'list']);
