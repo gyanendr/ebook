@@ -84,7 +84,7 @@
 
                         <div class="row">
                           <div class="col-sm-6">
-                            <img id="image" / width="100px" src="{{url('subcategory/'.$getDetails->banner)}}">
+                            <img id="image" / width="100px" src="{{url('public/subcategory/'.$getDetails->banner)}}">
                             <div class="form-group">
                                 <label> SubCategory Image </label> <br>
                                <input type="file" name="subcatImage" id="subcatImage" accept="image/*">

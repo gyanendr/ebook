@@ -59,7 +59,7 @@
                                   
                                   <tr>
                                     <th>Logo </th>
-                                    <td><img alt="banner logo" src="{{url('subcategory/'.$getDetails->banner)}}" width="100px"></td>
+                                    <td><img alt="banner logo" src="{{url('public/subcategory/'.$getDetails->banner)}}" width="100px"></td>
                                   </tr>                        
                            </tbody>
                        </table>

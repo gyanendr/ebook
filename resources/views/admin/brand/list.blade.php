@@ -58,7 +58,7 @@
                                   <td>{{$row->name}}</td>
                                   <td>{{$row->description}}</td>
                                   <td>
-                                    <img alt="brand logo" src="{{url('brand/'.$row->logo)}}" width="100px">
+                                    <img alt="brand logo" src="{{url('public/brand/'.$row->logo)}}" width="100px">
                                   </td>
                                   <td>
                                     <a href="{{route('brands.edit', $row->id)}}" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>

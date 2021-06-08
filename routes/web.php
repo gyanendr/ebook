@@ -51,6 +51,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 		Route::post('/edit-user', [AdminController::class, 'updateUserDetails'])->name('edit-user');
 		Route::get('/order-listing', [AdminController::class, 'orderListing'])->name('order-listing');
 		Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
+		Route::get('/activity-log', [AdminController::class, 'activityLog']);
 			
 });	
 		

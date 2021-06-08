@@ -58,7 +58,7 @@
                                   </tr>
                                   <tr>
                                     <th>Logo </th>
-                                    <td><img alt="brand logo" src="{{url('brand/'.$getDetails->logo)}}" width="100px"></td>
+                                    <td><img alt="brand logo" src="{{url('public/brand/'.$getDetails->logo)}}" width="100px"></td>
                                   </tr>                        
                            </tbody>
                        </table>

@@ -8,7 +8,8 @@ use Illuminate\Notifications\Notifiable;
 
 class CartItem extends Authenticatable
 {
-    use  Notifiable;
+    use  Notifiable , LogsActivity;
+    
     protected $table = 'cart';
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,17 @@ class CartItem extends Authenticatable
         'qty',
         'price',
     ];
+
+    protected static $logAttributes = [ 
+        'user_id',
+        'product_id',
+        'qty',
+        'price'
+    ];
+
+    protected static $recordEvents = ['created', 'updated', 'deleted'];
+
+    protected static $logName = 'AppUser';
 
 
 }

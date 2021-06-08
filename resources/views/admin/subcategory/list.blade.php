@@ -48,7 +48,7 @@
                                    <td>{{!empty($row->getCategory->category_name) ? $row->getCategory->category_name : ''}}</td>
                                    <td>{{$row->sub_category_name}}</td>
                                    <td> 
-                                    <img src="{{url('subcategory/'.$row->banner)}}" width="100px">  
+                                    <img src="{{url('public/subcategory/'.$row->banner)}}" width="100px">  
                                   </td>
                                     <td>
                                     <a href="{{route('subcategory.edit', $row->id)}}" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>

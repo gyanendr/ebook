@@ -47,3 +47,9 @@ Route::middleware('auth:customerapi')->group( function () {
    Route::get('/product-details/{productId}',[ProductController::class,'getProductDetails']);
    Route::get('/product-listing',[ProductController::class,'index']);
    Route::get('/category-listing',[ProductController::class,'categoryListing']);
+  
+   Route::post('/contact-us',[UserController::class,'contactMessage']);
+   Route::get('/advertisement',[ProductController::class,'advertisementListing']);
+   Route::get('/offers',[ProductController::class,'offerslisting']);
+   Route::get('/popular-products',[ProductController::class,'popularProducts']);
+   Route::get('/brands',[ProductController::class,'brandsListing']);

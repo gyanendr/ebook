@@ -95,6 +95,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Dashboard
               </p>
             </a>
+          </li> 
+
+          <li class="nav-item menu-open">
+            <a href="{{url('/admin/activity-log')}}" class="nav-link {{(url()->current() == url('/admin/activity-log')) ? 'active' : '' }}">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Activity Log
+              </p>
+            </a>
           </li>
          
           <li class="nav-item">
@@ -115,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('appuser-list')}}" class="nav-link">
+                <a href="{{url('appuser-list')}}" class="nav-link {{(url()->current() == url('appuser-list')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>App User Listing</p>
                 </a>

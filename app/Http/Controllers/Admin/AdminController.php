@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Role;
+use App\Models\Customer;
 use App\Models\Products;
 use App\Models\Brand;
 use App\Models\SubCategory;
@@ -18,6 +19,8 @@ use Session;
 use Mail;
 use App;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Models\Activity;
+
 class AdminController extends Controller
 {
 
@@ -114,6 +117,12 @@ class AdminController extends Controller
         }
     }
    
+    public function activityLog(){
+        $activityLog = activity::paginate(10);
+        $users = User::select('id', 'name')->get();
+        $mobileuser = Customer::select('id', 'username')->get();
+        return view('admin.activity', compact('activityLog', 'users', 'mobileuser'));
+    }
     
 
     

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\ContactMessage;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
@@ -252,6 +253,34 @@ class UserController extends Controller
           return response()->json(['error'=>'Unauthorised'], 401); 
          } 
       }   
+
+      public function contactMessage( Request $request){
+          $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'subject'  => 'required',
+            'email'    => 'required|email',
+            'message' => 'required',
+          ]);
+   
+         if($validator->fails()){
+            return response()->json(['error'=>$validator->errors()], 401);     
+          }
+
+        $insert = ContactMessage::Create([
+          'name' => $request->name,
+          'subject' => $request->subject,
+          'email' => $request->email,
+          'message' => $request->message,
+          'timestamp' => time(),
+
+        ]);
+        
+        if($insert){
+          return response()->json(['success'=>'Message send successfully !'], $this->successStatus); 
+        }
+
+
+      }
 
 }
 

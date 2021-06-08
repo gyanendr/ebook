@@ -60,7 +60,7 @@
 
                         <div class="row">
                           <div class="col-sm-6">
-                              <img id="image" / width="100px" src="{{!empty($getDetails->logo) ? url('brand/'.$getDetails->logo) : ''}}">
+                              <img id="image" / width="100px" src="{{!empty($getDetails->logo) ? url('public/brand/'.$getDetails->logo) : ''}}">
                             <div class="form-group">
                                 <label> Brand Image </label> <br>
                               <input type="hidden" name="hiddenLogo" value="{{!empty($getDetails->logo) ? $getDetails->logo : '' }}">  

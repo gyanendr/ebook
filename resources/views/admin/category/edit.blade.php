@@ -117,7 +117,7 @@
                            </div>
                            @enderror 
                           @if(!empty($getDetails->banner))
-                            <img src="{{url('category/'.$getDetails->banner)}}" id="image" width="100px">
+                            <img src="{{url('public/category/'.$getDetails->banner)}}" id="image" width="100px">
                           @endif 
                           <input type="hidden" name="hiddenBanner" value="{{$getDetails->banner}}">
                           
